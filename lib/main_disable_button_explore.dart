@@ -51,7 +51,13 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             ElevatedButton(
-              // 3
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                onSurface: Colors.green.shade200,
+                shape: BeveledRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
               onPressed: _isAcceptTermsAndConditions
                   ? () {
                       print('Submit');
