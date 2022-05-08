@@ -57,6 +57,15 @@ class FirstScreen extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class _FirstScreenState extends State<FirstScreen> with ScreenMixin {
+  // durationInMillis is the speed of animation
+  final int _durationInMillis = 200;
+
+  // If dx>0.0 and dy=0.0 then navigates from right. 
+  // If dy>0.0 and dx= 0.0 then navigates from bottom.
+  // durationInMillis is the speed of animation
+  final double _dx = 100.0;
+  final double _dy = 0.0;
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -98,11 +107,22 @@ class _FirstScreenState extends State<FirstScreen> with ScreenMixin {
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => SecondScreen(),
-                    ),
-                  );
+                  Navigator.of(context).push(PageRouteBuilder(
+                      opaque: true,
+                      transitionDuration: Duration(milliseconds: _durationInMillis),
+                      pageBuilder: (BuildContext context, _, __) {
+                        return SecondScreen();
+                      },
+                      transitionsBuilder:
+                          (_, Animation<double> animation, __, Widget child) {
+                        return SlideTransition(
+                          child: child,
+                          position: Tween<Offset>(
+                            begin: Offset(_dx, _dy),
+                            end: Offset.zero,
+                          ).animate(animation),
+                        );
+                      }));
                 },
               ),
             ],
