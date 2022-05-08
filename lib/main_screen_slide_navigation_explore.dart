@@ -25,7 +25,7 @@ mixin ScreenMixin {
   /// base class for the statefull widgets, using a mixin class
   /// to add those common instance variables to the statefull
   /// widgets solves the problem.
-  static const String appTitle = 'Screen Navigation Explore';
+  static const String appTitle = 'Screen Slide Navigation Explore';
   final Color appLabelColor = Colors.yellow.shade300;
   final Color appTextAndIconColor = Colors.white;
   final MaterialStateProperty<Color?> appElevatedButtonBackgroundColor =
