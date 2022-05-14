@@ -43,9 +43,10 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
             Align(
               alignment: Alignment.topCenter,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 15,),
                   Row(
                     children: [
                       Text(
@@ -58,20 +59,6 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                       ),
                       const SizedBox(
                         width: 15,
-                      ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.blue.shade900)),
-                        onPressed: () {
-                          print('Now pressed');
-                        },
-                        child: const Text(
-                          'Now',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -111,20 +98,6 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                           ),
                           const SizedBox(
                             width: 15,
-                          ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Colors.blue.shade900)),
-                            onPressed: () {
-                              print('Now pressed');
-                            },
-                            child: const Text(
-                              'Now',
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
                           ),
                         ],
                       ),
@@ -194,6 +167,44 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                         style: TextStyle(
                           fontSize: 18,
                         ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.blue.shade900)),
+                    onPressed: () {
+                      print('Now pressed');
+                    },
+                    child: const Text(
+                      'Now',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 15,),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.blue.shade900)),
+                    onPressed: () {
+                      print('Now pressed');
+                    },
+                    child: const Text(
+                      'Now',
+                      style: TextStyle(
+                        fontSize: 18,
                       ),
                     ),
                   ),
