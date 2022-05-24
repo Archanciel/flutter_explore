@@ -16,7 +16,7 @@ class _MyHomePageState extends State<HomeScreen> {
   @override
   void initState() {
     PostsNotifier postNotifier =
-    Provider.of<PostsNotifier>(context, listen: false);
+        Provider.of<PostsNotifier>(context, listen: false);
     ApiService.getPosts(postNotifier);
     super.initState();
   }
@@ -26,30 +26,32 @@ class _MyHomePageState extends State<HomeScreen> {
     PostsNotifier postNotifier = Provider.of<PostsNotifier>(context);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text("MVVM + Provider Demo"),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.add),onPressed: (){
+      appBar: AppBar(
+        title: Text("MVVM + Provider Demo"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
               Navigator.pushNamed(context, "/add_post");
-            },)
-          ],
+            },
+          )
+        ],
+      ),
+      body: Container(
+        color: Colors.black12,
+        child: ListView.builder(
+          itemCount: postNotifier.getPostList().length,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: EdgeInsets.all(0),
+              key: ObjectKey(postNotifier.getPostList()[index]),
+              child: PostView(
+                post: postNotifier.getPostList()[index],
+              ),
+            );
+          },
         ),
-        body: postNotifier != null
-            ? Container(
-            color: Colors.black12,
-            child: ListView.builder(
-                itemCount: postNotifier.getPostList().length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.all(0),
-                    key: ObjectKey(postNotifier.getPostList()[index]),
-                    child: PostView(
-                      post: postNotifier.getPostList()[index],
-                    ),
-                  );
-                }))
-            : Center(
-          child: CircularProgressIndicator(),
-        ));
+      ),
+    );
   }
 }

@@ -17,17 +17,16 @@ class PostViewState extends State<PostView> {
   Post post;
   late PostViewModel postViewModel;
 
-  PostViewState(this.post){
-    postViewModel = new PostViewModel();
+  PostViewState(this.post) {
+    postViewModel = PostViewModel();
     postViewModel.setPost(post);
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(8),
-      child: new Container(
+      child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -48,7 +47,6 @@ class PostViewState extends State<PostView> {
                           ),
                         ),
                       ),
-
                       Expanded(
                         flex: 1,
                         child: Padding(
@@ -64,7 +62,7 @@ class PostViewState extends State<PostView> {
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               flex: 0,
               child: Divider(
                 height: 1,
@@ -77,7 +75,7 @@ class PostViewState extends State<PostView> {
                 child: Text(postViewModel.post.body),
               ),
             ),
-            Expanded(
+            const Expanded(
               flex: 0,
               child: Divider(
                 height: 1,

@@ -6,18 +6,19 @@ import 'package:provider/provider.dart';
 class AddPostScreen extends StatefulWidget {
   @override
   State createState() {
-    return AddPostScreenSate();
+    return AddPostScreenState();
   }
 }
 
-class AddPostScreenSate extends State<AddPostScreen> {
+class AddPostScreenState extends State<AddPostScreen> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Post _post = new Post();
+  Post _post = Post();
 
   _showSnackBar(String text, BuildContext context) {
-    final snackbar = SnackBar(content: Text(text));
-    _scaffoldKey.currentState?.showSnackBar(snackbar);
+    final snackBar = SnackBar(content: Text(text));
+    //_scaffoldKey.currentState?.showSnackBar(snackBar); // deprecated
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   _createPost(BuildContext context) {
@@ -27,7 +28,7 @@ class AddPostScreenSate extends State<AddPostScreen> {
     }
     _formKey.currentState?.save();
     _post.userId =
-    1; // this is hard coded currently as we don't have authService
+        1; // this is hard coded currently as we don't have authService
 
     PostsNotifier postNotifier = Provider.of(context, listen: false);
     _post.id = postNotifier.getPostList().length + 1;
@@ -53,7 +54,7 @@ class AddPostScreenSate extends State<AddPostScreen> {
             Padding(
               padding: EdgeInsets.only(left: 32, right: 32, top: 16),
               child: TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Post title",
                 ),
                 validator: (value) {
@@ -74,7 +75,7 @@ class AddPostScreenSate extends State<AddPostScreen> {
             Padding(
               padding: EdgeInsets.only(left: 32, right: 32, top: 16),
               child: TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Post Body",
                 ),
                 validator: (value) {
@@ -94,8 +95,8 @@ class AddPostScreenSate extends State<AddPostScreen> {
             ),
             Padding(
               padding:
-              const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
-              child: RaisedButton(
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
+              child: ElevatedButton(
                 onPressed: () {
                   _createPost(context);
                 },

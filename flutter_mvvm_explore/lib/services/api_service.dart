@@ -24,18 +24,19 @@ class ApiService {
       postNotifier.setPostList(postList);
     });
   }
-  static Future<bool> addPost(Post post,PostsNotifier postNotifier) async{
+
+  static Future<bool> addPost(Post post, PostsNotifier postNotifier) async {
     print("addPost");
     bool result = false;
-    await http.post(Uri.parse(API_ENDPOINT),headers: {
-    "Content-type": "application/json; charset=UTF-8"
-    },body: json.encode(post.toMap())).then((response){
-
+    await http
+        .post(Uri.parse(API_ENDPOINT),
+            headers: {"Content-type": "application/json; charset=UTF-8"},
+            body: json.encode(post.toMap()))
+        .then((response) {
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
 
-
-      if(response.statusCode == 201){
+      if (response.statusCode == 201) {
         print("successful");
         result = true;
         postNotifier.addPostToList(post);

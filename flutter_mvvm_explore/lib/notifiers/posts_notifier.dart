@@ -11,7 +11,7 @@ class PostsNotifier with ChangeNotifier {
   }
 
   setPostList(List<Post> postList) {
-    _postList = [];
+//    _postList = [];
     _postList = postList;
     notifyListeners();
   }
