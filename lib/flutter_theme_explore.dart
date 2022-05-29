@@ -10,16 +10,53 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const appName = 'Custom Themes';
+    // final ThemeData baseThemeData = ThemeData.dark();
+    //ThemeData baseThemeData = Theme.of(context);
+    //ThemeData baseThemeData = ThemeData.light();
+    ThemeData baseThemeData = ThemeData.dark();
 
     return MaterialApp(
       title: appName,
-      theme: ThemeData(
-        // Define the default brightness and colors.
+      // theme: ThemeData(
+      //   accentColor: Colors.indigo, // DEPRECATED
+      //   brightness: Brightness.dark,
+      //   primaryColor: Colors.lightBlue[800],
+
+      //   // Define the default font family.
+      //   fontFamily: 'Lato',
+
+      //   // Define the default `TextTheme`. Use this to specify the default
+      //   // text styling for headlines, titles, bodies of text, and more.
+      //   textTheme: const TextTheme(
+      //     headline1: TextStyle(
+      //       fontSize: 72.0,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //     headline6: TextStyle(
+      //       fontFamily: 'Georgia',
+      //       fontSize: 36.0,
+      //       fontStyle: FontStyle.italic,
+      //       fontWeight: FontWeight.bold,
+      //       color: Colors.red,
+      //     ),
+      //     bodyText2: TextStyle(
+      //       fontSize: 22.0,
+      //       fontFamily: 'Lato',
+      //       color: Colors.yellow,
+      //     ),
+      //   ),
+      // ),
+      
+      // SOLVING THE DEPRECATED USE OF accentColor
+      theme: baseThemeData.copyWith(
+        //accentColor: Colors.indigo, // DEPRECATED
+        colorScheme:
+            baseThemeData.colorScheme.copyWith(secondary: Colors.indigo),
         brightness: Brightness.dark,
-        primaryColor: Colors.lightBlue[800], // or Colors.lightBlue.shade800
+        primaryColor: Colors.lightBlue[800],
 
         // Define the default font family.
-        fontFamily: 'Georgia',
+        // NOT POSSIBLE WITH copyWith !
 
         // Define the default `TextTheme`. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
@@ -29,6 +66,7 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           headline6: TextStyle(
+            fontFamily: 'Georgia',
             fontSize: 36.0,
             fontStyle: FontStyle.italic,
             fontWeight: FontWeight.bold,
@@ -36,8 +74,8 @@ class MyApp extends StatelessWidget {
           ),
           bodyText2: TextStyle(
             fontSize: 22.0,
-            fontFamily: 'Hind',
-            color: Colors.black,
+            fontFamily: 'Lato',
+            color: Colors.yellow,
           ),
         ),
       ),
@@ -74,6 +112,9 @@ class MyHomePage extends StatelessWidget {
               Text(
                 'Text bodyText2',
                 style: Theme.of(context).textTheme.bodyText2,
+              ),
+              Text(
+                'Text default',
               ),
             ],
           ),
