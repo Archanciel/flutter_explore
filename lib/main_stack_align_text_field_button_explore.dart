@@ -46,7 +46,9 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Row(
                     children: [
                       Text(
@@ -126,12 +128,24 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    'Duration',
-                    style: TextStyle(
-                      color: Colors.yellow.shade300,
-                      fontSize: 18,
-                      fontWeight: FontWeight.normal,
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                      textSelectionTheme: TextSelectionThemeData(
+                        selectionColor: Colors.green,
+                        // commenting cursorColor discourage manually
+                        // editing the TextField !
+                        // cursorColor: appTextAndIconColor,
+                      ),
+                    ),
+                    child: TextField(
+                      maxLines: null,
+                      minLines: 6,
+                      style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                      decoration: const InputDecoration.collapsed(hintText: ''),
+                      keyboardType: TextInputType.datetime,
                     ),
                   ),
                   Container(
@@ -153,24 +167,25 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    alignment: Alignment.topRight,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.blue.shade900)),
-                      onPressed: () {
-                        // Validate returns true if the form is valid, or false otherwise.
-                      },
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
+              ),
+            ),
+            Positioned(
+              right: 0,
+              bottom: 0,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.blue.shade900)),
+                onPressed: () {
+                  // Validate returns true if the form is valid, or false otherwise.
+                },
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
               ),
             ),
             Align(
@@ -193,7 +208,9 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
@@ -224,8 +241,9 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                 ],
               ),
             ),
-            Align(
-              alignment: Alignment.bottomRight,
+            Positioned(
+              right: 50,
+              top: 50,
               child: TextButton(
                   style: const ButtonStyle(
                     visualDensity: VisualDensity(

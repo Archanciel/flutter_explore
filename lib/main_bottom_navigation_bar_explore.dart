@@ -86,7 +86,20 @@ class MyContacts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Contacts"));
+    return Stack(children: [
+      const Align(
+        alignment: Alignment.center,
+        child: Text("Contacts"),
+      ),
+      Positioned(
+        right: 10,
+        bottom: 10,
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text('Reset')
+        ),
+      ),
+    ]);
   }
 }
 
