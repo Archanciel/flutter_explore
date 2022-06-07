@@ -66,17 +66,10 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     if (state == AppLifecycleState.inactive ||
         state == AppLifecycleState.detached) return;
 
-    final isBackground = state == AppLifecycleState.paused;
-
-    if (isBackground) {
-      TextPreferences.setText(_controller.text);
+    if (state == AppLifecycleState.resumed) {
+      _controller.text += ' resumed';
+      setState(() {});
     }
-
-    /* if (isBackground) {
-      // service.stop();
-    } else {
-      // service.start();
-    }*/
   }
 
   @override

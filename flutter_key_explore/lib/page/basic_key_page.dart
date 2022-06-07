@@ -9,6 +9,8 @@ class BasicKeyPage extends StatefulWidget {
 
 class _BasicKeyPageState extends State<BasicKeyPage> {
   bool showEmail = true;
+  Icon? icon;
+  Text? label = Text('hello');
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -24,15 +26,26 @@ class _BasicKeyPageState extends State<BasicKeyPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: Utils.heightBetween(
                 [
-                  if (showEmail)
-                    TextField(
+                  Row(
+                    children: [
+                      Text("always included"),
+                      SizedBox(width: 6),
+                      ...skipNulls([
+                        icon,
+                        label,
+                        label,
+                      ]),
+                    ],
+                  ),
+                  if (showEmail) 
+                    const TextField(
                       key: ValueKey(MyObject(1)),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email',
                       ),
                     ),
-                  TextField(
+                  const TextField(
                     key: ValueKey(MyObject(2)),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -54,6 +67,10 @@ class _BasicKeyPageState extends State<BasicKeyPage> {
           onPressed: () => setState(() => showEmail = false),
         ),
       );
+}
+
+skipNulls<Widget>(List<Widget> items) {
+  return items..removeWhere((item) => item == null);
 }
 
 class MyObject {
