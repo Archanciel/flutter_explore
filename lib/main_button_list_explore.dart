@@ -2,7 +2,23 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(XylophoneApp());
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Title of Application',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: XylophoneApp(),
+    );
+  }
+}
 
 class XylophoneApp extends StatefulWidget {
   @override
@@ -12,25 +28,21 @@ class XylophoneApp extends StatefulWidget {
 class _XylophoneAppState extends State<XylophoneApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.black,
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextButton(
-                child: const Text(''),
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.red,
-                ),
-                onPressed: () {
-                  _showPopupMenu();
-                },
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextButton(
+              child: const Text(''),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red,
               ),
-            ],
-          ),
+              onPressed: _showPopupMenu,
+            ),
+          ],
         ),
       ),
     );
@@ -39,23 +51,25 @@ class _XylophoneAppState extends State<XylophoneApp> {
   _showPopupMenu() {
     showMenu<String>(
       context: context,
-      position: RelativeRect.fromLTRB(25.0, 25.0, 0.0,
+      position: const RelativeRect.fromLTRB(0.0, 455.0, 0.0,
           0.0), //position where you want to show the menu on screen
       items: [
-        PopupMenuItem<String>(child: const Text('menu option 1'), value: '1'),
-        PopupMenuItem<String>(child: const Text('menu option 2'), value: '2'),
-        PopupMenuItem<String>(child: const Text('menu option 3'), value: '3'),
+        const PopupMenuItem<String>(child: Text('menu option 1'), value: '1'),
+        const PopupMenuItem<String>(child: Text('menu option 2'), value: '2'),
+        const PopupMenuItem<String>(child: Text('menu option 3'), value: '3'),
       ],
       elevation: 8.0,
     ).then<void>((String? itemSelected) {
       if (itemSelected == null) return;
 
+      print('itemSelected $itemSelected');
+
       if (itemSelected == "1") {
-        //code here
+        print('itemSelected ONE');
       } else if (itemSelected == "2") {
-        //code here
+        print('itemSelected TWO');
       } else {
-        //code here
+        print('itemSelected THREE');
       }
     });
   }
