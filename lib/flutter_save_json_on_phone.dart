@@ -115,13 +115,13 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Create JSON File'),
+          title: const Text('Create JSON File'),
         ),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Text(
+              const Text(
                 'JSON: ',
                 style: kTextStyle,
               ),
@@ -133,7 +133,7 @@ class _MyAppState extends State<MyApp> {
                   style: kTextStyle,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Text(
@@ -151,10 +151,10 @@ class _MyAppState extends State<MyApp> {
                 controller: _controllerValue,
                 label: 'Value',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   print(
                       '0. Input key: ${_controllerKey.text}; Input value: ${_controllerValue.text}\n-\n');
@@ -167,18 +167,19 @@ class _MyAppState extends State<MyApp> {
                   _controllerKey.clear();
                   _controllerValue.clear();
                 },
-                elevation: 25.0,
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
-                //shape: ShapeBorder(),
-                color: Theme.of(context).primaryColor,
-                child: Text(
+                style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        Size(100, 50) // put the width and height you want
+                    ),
+                child: const Text(
                   'Add {Key, Value} pair',
                   style: TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Expanded(
