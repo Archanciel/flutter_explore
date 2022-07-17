@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(
@@ -15,9 +14,16 @@ void main() {
 
 class CounterStorage {
   Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
+    String path = '/storage/emulated/0/Download/CircadianData';
+    final Directory directory = Directory(path);
+    bool directoryExists = await directory.exists();
 
-    return directory.path;
+    if (!directoryExists) {
+      await directory.create();
+    }
+    print(directoryExists);
+    print(path);
+    return path;
   }
 
   Future<File> get _localFile async {
@@ -82,7 +88,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reading and Writing Files'),
+        title: const Text('Reading and writing files'),
       ),
       body: Center(
         child: Text(
