@@ -155,7 +155,7 @@ class CustomStatefullWidget extends StatefulWidget {
   late final _CustomStatefullWidgetState stateInstance;
 
   @override
-  _CustomStatefullWidgetState createState() {
+  State<CustomStatefullWidget> createState() {
     stateInstance = _CustomStatefullWidgetState();
 
     return stateInstance;
