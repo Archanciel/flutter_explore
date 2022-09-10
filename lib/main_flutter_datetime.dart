@@ -46,8 +46,9 @@ class _HomePageState extends State<HomePage> {
           return MediaQuery(
               data: MediaQuery.of(context).copyWith(
                   // Using 12-Hour format
-                  alwaysUse24HourFormat: true),
-              // If you want 24-Hour format, just change alwaysUse24HourFormat to true
+                  alwaysUse24HourFormat: false),
+                  // If you want 24-Hour format, just change 
+                  // alwaysUse24HourFormat to true
               child: child!);
         });
     if (result != null) {
@@ -70,7 +71,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: ElevatedButton(
-          onPressed: _show, child: const Text('Show Time Picker')),
+        onPressed: _show,
+        child: const Text('Show Time Picker'),
+      ),
     );
   }
 }
