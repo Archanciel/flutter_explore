@@ -32,15 +32,15 @@ class _TextScreenState extends State<TextScreen> {
   DateTime dateTime = DateTime.now();
   bool showDate = false;
   bool showTime = false;
-  bool showDateTime = false;
+  bool showDateTime = true;
 
   // Select for Date
   Future<DateTime> _selectDate(BuildContext context) async {
     final selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2100),
     );
     if (selected != null && selected != selectedDate) {
       setState(() {
@@ -50,7 +50,6 @@ class _TextScreenState extends State<TextScreen> {
     return selectedDate;
   }
 
-// Select for Time
   Future<TimeOfDay> _selectTime(BuildContext context) async {
     final selected = await showTimePicker(
       context: context,
@@ -64,14 +63,15 @@ class _TextScreenState extends State<TextScreen> {
         );
       },
     );
+
     if (selected != null && selected != selectedTime) {
       setState(() {
         selectedTime = selected;
       });
     }
+
     return selectedTime;
   }
-  // select date time picker
 
   Future _selectDateTime(BuildContext context) async {
     final date = await _selectDate(context);
@@ -105,7 +105,7 @@ class _TextScreenState extends State<TextScreen> {
     if (dateTime == null) {
       return 'select date timer';
     } else {
-      return DateFormat('yyyy-MM-dd HH: ss a').format(dateTime);
+      return DateFormat('yyyy-MM-dd HH:mm').format(dateTime);
     }
   }
 
@@ -167,8 +167,25 @@ class _TextScreenState extends State<TextScreen> {
                 child: const Text('Select Date and Time Picker'),
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
             showDateTime
-                ? Center(child: Text(getDateTime()))
+                ? Center(
+                    child: GestureDetector(
+                      child: Text(
+                        getDateTime(),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onTap: () {
+                        _selectDateTime(context);
+                        showDateTime = true;
+                      },
+                    ),
+                  )
                 : const SizedBox(),
           ],
         ),
