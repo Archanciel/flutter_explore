@@ -32,7 +32,6 @@ class _TextScreenState extends State<TextScreen> {
   DateTime dateTime = DateTime.now();
   bool showDate = false;
   bool showTime = false;
-  bool showDateTime = true;
 
   // Select for Date
   Future<DateTime> _selectDate(BuildContext context) async {
@@ -162,7 +161,6 @@ class _TextScreenState extends State<TextScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   _selectDateTime(context);
-                  showDateTime = true;
                 },
                 child: const Text('Select Date and Time Picker'),
               ),
@@ -170,23 +168,20 @@ class _TextScreenState extends State<TextScreen> {
             const SizedBox(
               height: 10,
             ),
-            showDateTime
-                ? Center(
-                    child: GestureDetector(
-                      child: Text(
-                        getDateTime(),
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onTap: () {
-                        _selectDateTime(context);
-                        showDateTime = true;
-                      },
-                    ),
-                  )
-                : const SizedBox(),
+            Center(
+              child: GestureDetector(
+                child: Text(
+                  getDateTime(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onTap: () {
+                  _selectDateTime(context);
+                },
+              ),
+            )
           ],
         ),
       ),
