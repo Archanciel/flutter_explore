@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: 20,
           ),
-          RaisedButton(
+          ElevatedButton(
             key: Key("loadFromDatabase"),
             child: Text("Load Todo from Database"),
             onPressed: () async {
