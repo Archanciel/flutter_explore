@@ -1,0 +1,65 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "flutter_explore",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "flutter_explore (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "flutter_explore (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "flutter_key_explore",
+            "cwd": "flutter_key_explore",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "flutter_key_explore (profile mode)",
+            "cwd": "flutter_key_explore",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "flutter_key_explore (release mode)",
+            "cwd": "flutter_key_explore",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "flutter_widget_unit_test",
+            "cwd": "flutter_widget_unit_test",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "flutter_widget_unit_test (profile mode)",
+            "cwd": "flutter_widget_unit_test",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "flutter_widget_unit_test (release mode)",
+            "cwd": "flutter_widget_unit_test",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
