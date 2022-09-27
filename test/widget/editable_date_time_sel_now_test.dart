@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_explore/flutter_editable_date_time_stateless/editable_date_time.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:intl/intl.dart';
 
 Future<void> main() async {
   final Finder nextMonthIcon = find.byWidgetPredicate((Widget w) =>
@@ -16,7 +14,7 @@ Future<void> main() async {
     'EditableDateTime widget testing',
     () {
       testWidgets(
-        'Selecting date day only',
+        'Setting date day only',
         (tester) async {
           await tester.pumpWidget(
             MaterialApp(
@@ -47,7 +45,7 @@ Future<void> main() async {
         },
       );
       testWidgets(
-        'Selecting date month and day',
+        'Selecting previous date month and setting day only',
         (tester) async {
           await tester.pumpWidget(
             MaterialApp(
