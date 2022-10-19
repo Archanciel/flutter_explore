@@ -34,17 +34,16 @@ class _MyAppState extends State<MyApp> {
             fontSize: 20,
           ),
           maxLines: null, // must be set, otherwise multi lines
+          //                 not displayed
           readOnly: true,
-          // enabling select all/cut/copy/paste
-          enableInteractiveSelection: true,
           controller: _controller,
           onTap: () {
             int tapStringPosition = _controller.selection.start; // equal to
             //                                   _controller.selection.end !
             String hhmmStr = extractHHmmAtPosition(
-                dataStr: _controller.text,
-                selStartPosition: tapStringPosition,
-                selEndPosition: tapStringPosition);
+              dataStr: _controller.text,
+              selStartPosition: tapStringPosition,
+            );
             int hhmmStrStartIdx = _controller.text.indexOf(hhmmStr);
             int hhmmStrEndIdx = hhmmStrStartIdx + hhmmStr.length;
             _controller.selection = TextSelection(
@@ -58,7 +57,6 @@ class _MyAppState extends State<MyApp> {
   String extractHHmmAtPosition({
     required String dataStr,
     required int selStartPosition,
-    required int selEndPosition,
   }) {
     if (selStartPosition > dataStr.length) {
       return '';
@@ -69,7 +67,10 @@ class _MyAppState extends State<MyApp> {
 
     if (selStartPosition > newLineCharIdx) {
       // the case if clicking on second line
-      leftIdx = dataStr.substring(newLineCharIdx + 1, selStartPosition).lastIndexOf(' ') + newLineCharIdx;
+      leftIdx = dataStr
+              .substring(newLineCharIdx + 1, selStartPosition)
+              .lastIndexOf(' ') +
+          newLineCharIdx;
     } else {
       leftIdx = dataStr.substring(0, selStartPosition).lastIndexOf(' ');
     }
