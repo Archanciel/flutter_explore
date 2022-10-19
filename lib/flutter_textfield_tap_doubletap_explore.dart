@@ -16,8 +16,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final TextEditingController _textFieldOneController =
-      TextEditingController(text: '12-04-2022 13:56, 15:40, 23:11');
+  final TextEditingController _controller = TextEditingController(
+      text:
+          'Sleep 12-04-2022 12:16, 15:40, 23:11\nWake 02-12-2022 3:56, 05:40, 00:11');
 
   @override
   Widget build(BuildContext context) {
@@ -32,24 +33,22 @@ class _MyAppState extends State<MyApp> {
           style: const TextStyle(
             fontSize: 20,
           ),
+          maxLines: null, // must be set, otherwise multi lines
           readOnly: true,
           // enabling select all/cut/copy/paste
           enableInteractiveSelection: true,
-          controller: _textFieldOneController,
+          controller: _controller,
           onTap: () {
-            int tapStringPosition = _textFieldOneController.selection.start;
-            int end2 = _textFieldOneController.selection.end;
-            print('on tap or on double tap: $tapStringPosition, $end2');
+            int tapStringPosition = _controller.selection.start; // equal to
+            //                                   _controller.selection.end !
             String hhmmStr = extractHHmmAtPosition(
-                dataStr: _textFieldOneController.text,
+                dataStr: _controller.text,
                 selStartPosition: tapStringPosition,
                 selEndPosition: tapStringPosition);
-            print(hhmmStr);
-            int hhmmStrStartIdx = _textFieldOneController.text.indexOf(hhmmStr);
+            int hhmmStrStartIdx = _controller.text.indexOf(hhmmStr);
             int hhmmStrEndIdx = hhmmStrStartIdx + hhmmStr.length;
-            _textFieldOneController.selection = TextSelection(
-                baseOffset: hhmmStrStartIdx,
-                extentOffset: hhmmStrEndIdx);
+            _controller.selection = TextSelection(
+                baseOffset: hhmmStrStartIdx, extentOffset: hhmmStrEndIdx);
           },
         ),
       ),
@@ -65,17 +64,20 @@ class _MyAppState extends State<MyApp> {
       return '';
     }
 
-    if (dataStr.substring(selStartPosition - 1, selStartPosition) == '\n') {
-      // the case if 'Wake' is selected, which is after \n !
-      selStartPosition = selEndPosition + 1;
+    int newLineCharIdx = dataStr.lastIndexOf('\n');
+    int leftIdx;
+
+    if (selStartPosition > newLineCharIdx) {
+      // the case if clicking on second line
+      leftIdx = dataStr.substring(newLineCharIdx + 1, selStartPosition).lastIndexOf(' ') + newLineCharIdx;
+    } else {
+      leftIdx = dataStr.substring(0, selStartPosition).lastIndexOf(' ');
     }
 
     String extractedHHmmStr;
 
-    int leftIdx = dataStr.substring(0, selStartPosition).lastIndexOf(' ');
-
     if (leftIdx == -1) {
-      // the case if the position is on the last HH:mm value
+      // the case if selStartPosition is before the first space position
       leftIdx = 0;
     }
 
