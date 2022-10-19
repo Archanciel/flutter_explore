@@ -36,10 +36,66 @@ class _MyAppState extends State<MyApp> {
           // enabling select all/cut/copy/paste
           enableInteractiveSelection: true,
           controller: _textFieldOneController,
-          onTap: () => print(
-              'on tap or on double tap: ${_textFieldOneController.selection.start}, ${_textFieldOneController.selection.end}'),
+          onTap: () {
+            int tapStringPosition = _textFieldOneController.selection.start;
+            int end2 = _textFieldOneController.selection.end;
+            print('on tap or on double tap: $tapStringPosition, $end2');
+            String hhmmStr = extractHHmmAtPosition(
+                dataStr: _textFieldOneController.text,
+                selStartPosition: tapStringPosition,
+                selEndPosition: tapStringPosition);
+            print(hhmmStr);
+            int hhmmStrStartIdx = _textFieldOneController.text.indexOf(hhmmStr);
+            int hhmmStrEndIdx = hhmmStrStartIdx + hhmmStr.length;
+            _textFieldOneController.selection = TextSelection(
+                baseOffset: hhmmStrStartIdx,
+                extentOffset: hhmmStrEndIdx);
+          },
         ),
       ),
     );
+  }
+
+  String extractHHmmAtPosition({
+    required String dataStr,
+    required int selStartPosition,
+    required int selEndPosition,
+  }) {
+    if (selStartPosition > dataStr.length) {
+      return '';
+    }
+
+    if (dataStr.substring(selStartPosition - 1, selStartPosition) == '\n') {
+      // the case if 'Wake' is selected, which is after \n !
+      selStartPosition = selEndPosition + 1;
+    }
+
+    String extractedHHmmStr;
+
+    int leftIdx = dataStr.substring(0, selStartPosition).lastIndexOf(' ');
+
+    if (leftIdx == -1) {
+      // the case if the position is on the last HH:mm value
+      leftIdx = 0;
+    }
+
+    int rightIdx = dataStr.indexOf(',', selStartPosition);
+
+    if (rightIdx == -1) {
+      // the case if the position is on the last HH:mm value
+      rightIdx = dataStr.lastIndexOf(RegExp(r'\d')) + 1;
+    }
+
+    extractedHHmmStr = dataStr.substring(leftIdx, rightIdx);
+
+    if (extractedHHmmStr.contains(RegExp(r'\D'))) {
+      RegExpMatch? match = RegExp(r'\d+:\d+').firstMatch(extractedHHmmStr);
+
+      if (match != null) {
+        extractedHHmmStr = match.group(0) ?? '';
+      }
+    }
+
+    return extractedHHmmStr;
   }
 }
