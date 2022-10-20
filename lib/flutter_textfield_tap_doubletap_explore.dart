@@ -2,6 +2,8 @@
 
 // ignore_for_file: avoid_print
 
+import 'dart:math';
+
 import "package:flutter/material.dart";
 
 void main() {
@@ -40,9 +42,9 @@ class _MyAppState extends State<MyApp> {
           onTap: () {
             int tapStringPosition = _controller.selection.start; // equal to
             //                                   _controller.selection.end !
-            String hhmmStr = extractHHmmAtPosition(
+            String hhmmStr = extractHHmmAtPositionSimplified(
               dataStr: _controller.text,
-              selStartPosition: tapStringPosition,
+              pos: tapStringPosition,
             );
             int hhmmStrStartIdx = _controller.text.indexOf(hhmmStr);
             int hhmmStrEndIdx = hhmmStrStartIdx + hhmmStr.length;
@@ -54,25 +56,46 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  String extractHHmmAtPositionSimplified({
+    required String dataStr,
+    required int pos,
+  }) {
+    int endIdxComma =
+        dataStr.substring(pos, dataStr.length).indexOf(RegExp(r'[,]'));
+    int endIdxLineEnd =
+        dataStr.substring(pos, dataStr.length).indexOf(RegExp(r'[\n]'));
+    int endIdx = (endIdxLineEnd < endIdxComma) ? endIdxLineEnd : endIdxComma;
+
+    endIdx += pos;
+
+    if (endIdx == -1) {
+      endIdx == dataStr.length;
+    }
+
+    int startIdx = dataStr.substring(0, endIdx).lastIndexOf(' ') + 1;
+
+    String hhMmStr = dataStr.substring(startIdx, endIdx);
+
+    return hhMmStr;
+  }
+
   String extractHHmmAtPosition({
     required String dataStr,
-    required int selStartPosition,
+    required int pos,
   }) {
-    if (selStartPosition > dataStr.length) {
+    if (pos > dataStr.length) {
       return '';
     }
 
     int newLineCharIdx = dataStr.lastIndexOf('\n');
     int leftIdx;
 
-    if (selStartPosition > newLineCharIdx) {
+    if (pos > newLineCharIdx) {
       // the case if clicking on second line
-      leftIdx = dataStr
-              .substring(newLineCharIdx + 1, selStartPosition)
-              .lastIndexOf(' ') +
+      leftIdx = dataStr.substring(newLineCharIdx + 1, pos).lastIndexOf(' ') +
           newLineCharIdx;
     } else {
-      leftIdx = dataStr.substring(0, selStartPosition).lastIndexOf(' ');
+      leftIdx = dataStr.substring(0, pos).lastIndexOf(' ');
     }
 
     String extractedHHmmStr;
@@ -82,7 +105,7 @@ class _MyAppState extends State<MyApp> {
       leftIdx = 0;
     }
 
-    int rightIdx = dataStr.indexOf(',', selStartPosition);
+    int rightIdx = dataStr.indexOf(',', pos);
 
     if (rightIdx == -1) {
       // the case if the position is on the last HH:mm value
