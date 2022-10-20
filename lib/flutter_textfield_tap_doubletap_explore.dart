@@ -20,7 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final TextEditingController _controller = TextEditingController(
       text:
-          'Sleep 12-04-2022 12:16, 15:40, 23:11\nWake 02-12-2022 3:56, 05:40, 00:11');
+          'Sleep 12-04-2022 12:16, 15:40, 3:11\nWake 02-12-2022 3:56, 05:40, 0:11');
 
   @override
   Widget build(BuildContext context) {
@@ -60,16 +60,20 @@ class _MyAppState extends State<MyApp> {
     required String dataStr,
     required int pos,
   }) {
-    int endIdxComma =
-        dataStr.substring(pos, dataStr.length).indexOf(RegExp(r'[,]'));
+    int dataStrLength = dataStr.length;
+    int endIdx = 0;
     int endIdxLineEnd =
-        dataStr.substring(pos, dataStr.length).indexOf(RegExp(r'[\n]'));
-    int endIdx = (endIdxLineEnd < endIdxComma) ? endIdxLineEnd : endIdxComma;
-
-    endIdx += pos;
-
-    if (endIdx == -1) {
-      endIdx == dataStr.length;
+        dataStr.substring(0, dataStrLength).indexOf(RegExp(r'[\n]'));
+    if (pos <= endIdxLineEnd) {
+      // the case if clicking on first line
+      int endIdxComma =
+          dataStr.substring(pos, dataStrLength).indexOf(RegExp(r'[,]')) + pos;
+      endIdx = (endIdxLineEnd < endIdxComma) ? endIdxLineEnd : endIdxComma;
+    } else {
+      // the case if clicking on second line
+      int endIdxComma =
+          dataStr.substring(pos, dataStrLength).indexOf(RegExp(r'[,]')) + pos;
+      endIdx = (endIdxComma <= dataStrLength - 5) ? endIdxComma : dataStrLength;
     }
 
     int startIdx = dataStr.substring(0, endIdx).lastIndexOf(' ') + 1;
