@@ -45,6 +45,7 @@ dependencies:
   page_transition: ^2.0.5
   path_provider: ^2.0.10
   shared_preferences: ^2.0.15
+  fluttertoast: ^8.1.1
   #  bloc: ^8.0.3
 
 dev_dependencies:
