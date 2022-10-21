@@ -53,16 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.greenAccent,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.check),
-          const SizedBox(
-            width: 12.0,
-          ),
-          const Text("Custom Toast"),
-        ],
-      ),
+      child: const Text("Custom Toast"),
     );
 
     // Custom Toast Position
