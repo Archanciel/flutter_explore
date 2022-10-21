@@ -32,57 +32,51 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  FocusNode _focusNode = FocusNode();
   GlobalKey _textFieldKey = GlobalKey();
   TextStyle _textFieldStyle = TextStyle(fontSize: 20);
 
+  FocusNode _focusNode = FocusNode();
   TextEditingController _textFieldController = TextEditingController();
+  late FToast fToast;
+
   @override
   void initState() {
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
   }
 
-  // Code reference for overlay logic from MTECHVIRAL's video
-  // https://www.youtube.com/watch?v=KuXKwjv2gTY
+  _showToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check),
+          const SizedBox(
+            width: 12.0,
+          ),
+          const Text("Custom Toast"),
+        ],
+      ),
+    );
 
-  showOverlaidTag(BuildContext context, String newText) async {
-    Fluttertoast.showToast(
-        msg: newText,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.TOP);
-    // TextPainter painter = TextPainter(
-    //   textDirection: TextDirection.ltr,
-    //   text: TextSpan(
-    //     style: _textFieldStyle,
-    //     text: newText,
-    //   ),
-    // );
-    // painter.layout();
-
-    // OverlayState overlayState = Overlay.of(context)!;
-    // OverlayEntry suggestionTagoverlayEntry = OverlayEntry(builder: (context) {
-    //   return Positioned(
-    //     // Decides where to place the tag on the screen.
-    //     top: _focusNode.offset.dy - 50,
-    //     left: _textFieldController.selection.start.toDouble() * 3,
-
-    //     // Tag code.
-    //     child: Material(
-    //         elevation: 4.0,
-    //         color: Colors.lightBlueAccent,
-    //         child: Text(
-    //           _textFieldController.text,
-    //           style: TextStyle(
-    //             fontSize: 20.0,
-    //           ),
-    //         )),
-    //   );
-    // });
-    // overlayState.insert(suggestionTagoverlayEntry);
-
-    // // Removes the over lay entry from the Overly after 500 milliseconds
-    // await Future.delayed(Duration(milliseconds: 2000));
-    // suggestionTagoverlayEntry.remove();
+    // Custom Toast Position
+    fToast.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
+      positionedToastBuilder: (context, child) {
+        return Positioned(
+          child: child,
+          top: _focusNode.offset.dy - 55,
+          left: _textFieldController.selection.start.toDouble() * 2,
+        );
+      },
+    );
   }
 
   @override
@@ -92,17 +86,25 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: SizedBox(
-          child: TextField(
-            focusNode: _focusNode,
-            controller: _textFieldController,
-            key: _textFieldKey,
-            style: _textFieldStyle,
-            onChanged: (String nextText) {
-              showOverlaidTag(context, nextText);
-            },
-          ),
-          width: 400.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              focusNode: _focusNode,
+              controller: _textFieldController,
+              key: _textFieldKey,
+              style: _textFieldStyle,
+            ),
+            const SizedBox(
+              height: 250.0,
+            ),
+            ElevatedButton(
+              onPressed:() {
+                _showToast();
+              }, 
+              child: const Text('Click'),
+            ),
+          ],
         ),
       ),
     );
