@@ -49,9 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
                   // required, otherwise, field not focusable
-                  FocusScope.of(context).requestFocus(
-                    _textfieldFocusNode,
-                  );
+                  // FocusScope.of(context).requestFocus(
+                  //   _textfieldFocusNode,
+                  // );
                   _controller.selection =
                       TextSelection(baseOffset: 0, extentOffset: 0);
                   // setState(() {
@@ -64,12 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   // });
                 },
-                child: IgnorePointer(
-                  // Prevent the menu due to tap on the textfield (so as to show the menu under GestureDetector)
-                  child: TextField(
-                    focusNode: _textfieldFocusNode,
-                    controller: _controller,
-                  ),
+                child: TextField(
+                  // focusNode: _textfieldFocusNode,
+                  controller: _controller,
                 ),
               ),
             )
