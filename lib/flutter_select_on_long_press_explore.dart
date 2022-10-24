@@ -53,16 +53,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     _textfieldFocusNode,
                   );
                   _controller.selection =
-                      TextSelection(baseOffset: 0, extentOffset: 0);
+                      const TextSelection(baseOffset: 0, extentOffset: 0);
                 },
                 onLongPress: () {
                   _controller.selection = TextSelection(
                       baseOffset: 0, extentOffset: _controller.text.length);
                 },
-                child: IgnorePointer( // required for sel to work
-                  // Prevent the menu due to tap on the textfield (so as to show the menu under GestureDetector)
+                child: IgnorePointer( // required for onLongPress selection to work
+                  // Prevents displaying copèy menu after selecting in TextField
                   child: TextField(
-                    // required, otherwise, field not focusable due to
+                    // Required, otherwise, field not focusable due to
                     // IgnorePointer wrapping
                     focusNode: _textfieldFocusNode,
                     controller: _controller,
