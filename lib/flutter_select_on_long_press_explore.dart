@@ -49,24 +49,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
                   // required, otherwise, field not focusable
-                  // FocusScope.of(context).requestFocus(
-                  //   _textfieldFocusNode,
-                  // );
+                  FocusScope.of(context).requestFocus(
+                    _textfieldFocusNode,
+                  );
                   _controller.selection =
                       TextSelection(baseOffset: 0, extentOffset: 0);
-                  // setState(() {
-                  // });
                 },
                 onLongPress: () {
                   _controller.selection = TextSelection(
                       baseOffset: 0, extentOffset: _controller.text.length);
-                  // setState(() {
-
-                  // });
                 },
-                child: TextField(
-                  // focusNode: _textfieldFocusNode,
-                  controller: _controller,
+                child: IgnorePointer( // required for sel to work
+                  // Prevent the menu due to tap on the textfield (so as to show the menu under GestureDetector)
+                  child: TextField(
+                    // required, otherwise, field not focusable due to
+                    // IgnorePointer wrapping
+                    focusNode: _textfieldFocusNode,
+                    controller: _controller,
+                  ),
                 ),
               ),
             )
