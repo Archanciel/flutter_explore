@@ -45,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: GestureDetector(
-                // intercept all pointer calls
+                // intercept all pointer calls. Required, otherwise
+                // GestureDetector.onTap:, onLongPress: not applied
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
                   // required, otherwise, field not focusable
@@ -60,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       baseOffset: 0, extentOffset: _controller.text.length);
                 },
                 child: IgnorePointer( // required for onLongPress selection to work
-                  // Prevents displaying copèy menu after selecting in TextField
+                  // Prevents displaying copy menu after selecting in TextField
                   child: TextField(
                     // Required, otherwise, field not focusable due to
                     // IgnorePointer wrapping
