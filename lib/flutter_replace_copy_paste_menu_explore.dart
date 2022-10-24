@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({required this.title, Key key = const Key('hhh')}) : super(key: key);
+  const MyHomePage({required this.title, Key key = const Key('hhh')})
+      : super(key: key);
 
   final String title;
 
@@ -47,35 +48,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 // intercept all pointer calls
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  FocusScope.of(context).requestFocus(_textfieldFocusNode);
+                  FocusScope.of(context).requestFocus(
+                    _textfieldFocusNode,
+                  );
+                  _controller.selection =
+                      TextSelection(baseOffset: 0, extentOffset: 0);
+                  // setState(() {
+                  // });
                 },
                 onLongPress: () {
-                  showMenu(
-                    context: context,
-                    // TODO: Position dynamically based on cursor or textfield
-                    position: const RelativeRect.fromLTRB(0.0, 400.0, 300.0, 0.0),
-                    items: [
-                      PopupMenuItem(
-                        child: Row(
-                          children: <Widget>[
-                            const PopupMenuItem(
-                              child: Text(
-                                "Paste",
-                              ),
-                            ),
-                            const PopupMenuItem(
-                              child: Text("Paste All",
-                                  style: TextStyle(color: Colors.blue)),
-                            ),
-                            const PopupMenuItem(
-                              // child: Icon(Icons.more_vert),
-                              child: Icon(Icons.play_circle_filled),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
+                  _controller.selection = TextSelection(
+                      baseOffset: 0, extentOffset: _controller.text.length);
+                  // setState(() {
+
+                  // });
                 },
                 child: IgnorePointer(
                   // Prevent the menu due to tap on the textfield (so as to show the menu under GestureDetector)
