@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // intercept all pointer calls
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
+                  // required, otherwise, field not focusable
                   FocusScope.of(context).requestFocus(
                     _textfieldFocusNode,
                   );
