@@ -45,17 +45,18 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: GestureDetector(
-                // intercept all pointer calls. Required, otherwise
-                // GestureDetector.onTap:, onDoubleTap:, onLongPress:
-                // not applied
+                // HitTestBehavior intercepts all pointer calls. Required,
+                // otherwise GestureDetector.onTap:, onDoubleTap:,
+                // onLongPress: not applied
                 behavior: HitTestBehavior.opaque,
                 onDoubleTap: () async {
                   await copyToClipboard(
                       context: context, controller: _controller);
                 },
+
+                // IgnorePointer required to avoid TextField selection and
+                // copy paste menu on long press
                 child: IgnorePointer(
-                  // required for onLongPress selection to work
-                  // Prevents displaying copy menu after selecting in TextField
                   child: TextField(
                     controller: _controller,
                     readOnly: true,
