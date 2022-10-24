@@ -31,7 +31,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _controller = TextEditingController(text: 'Hello World !');
-  final _textfieldFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -50,25 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // GestureDetector.onTap:, onDoubleTap:, onLongPress:
                 // not applied
                 behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  // required, otherwise, field not focusable
-                  FocusScope.of(context).requestFocus(
-                    _textfieldFocusNode,
-                  );
-                  _controller.selection =
-                      const TextSelection(baseOffset: 0, extentOffset: 0);
-                },
-                onLongPress: () {
-                  _controller.selection =
-                      const TextSelection(baseOffset: 0, extentOffset: 0);
-                },
                 onDoubleTap: () async {
-                  // required, otherwise, field not focusable
-                  FocusScope.of(context).requestFocus(
-                    _textfieldFocusNode,
-                  );
-                  _controller.selection = TextSelection(
-                      baseOffset: 0, extentOffset: _controller.text.length);
                   await copyToClipboard(
                       context: context, controller: _controller);
                 },
@@ -76,9 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   // required for onLongPress selection to work
                   // Prevents displaying copy menu after selecting in TextField
                   child: TextField(
-                    // Required, otherwise, field not focusable due to
-                    // IgnorePointer wrapping
-                    focusNode: _textfieldFocusNode,
                     controller: _controller,
                     readOnly: true,
                   ),
@@ -119,14 +97,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     await Clipboard.setData(ClipboardData(text: selectedText));
 
-    final CircadianSnackBar snackBar =
-        CircadianSnackBar(message: '$selectedText copied to clipboard');
+    final CustomSnackBar snackBar =
+        CustomSnackBar(message: '$selectedText copied to clipboard');
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
 
-class CircadianSnackBar extends SnackBar {
-  CircadianSnackBar({required String message})
+class CustomSnackBar extends SnackBar {
+  CustomSnackBar({required String message})
       : super(
           content: Text(
             message,
