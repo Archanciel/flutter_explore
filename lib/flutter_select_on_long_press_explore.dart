@@ -48,6 +48,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 // intercept all pointer calls. Required, otherwise
                 // GestureDetector.onTap:, onLongPress: not applied
                 behavior: HitTestBehavior.opaque,
+                // required for GestureDetector onLongPress to be abled
+                child: IgnorePointer(
+                  child: TextField(
+                    // Required, otherwise, field not focusable due to
+                    // IgnorePointer wrapping
+                    focusNode: _textfieldFocusNode,
+                    controller: _controller,
+                  ),
+                ),
                 onTap: () {
                   // required, otherwise, field not focusable
                   FocusScope.of(context).requestFocus(
@@ -60,15 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   _controller.selection = TextSelection(
                       baseOffset: 0, extentOffset: _controller.text.length);
                 },
-                child: IgnorePointer( // required for onLongPress selection to work
-                  // Prevents displaying copy menu after selecting in TextField
-                  child: TextField(
-                    // Required, otherwise, field not focusable due to
-                    // IgnorePointer wrapping
-                    focusNode: _textfieldFocusNode,
-                    controller: _controller,
-                  ),
-                ),
               ),
             )
           ],
