@@ -1,73 +1,137 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Disabling Button',
-      theme: ThemeData.dark(),
-      home: HomePage(),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Checkbox problem',
+      home: MainApp(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<MainApp> createState() => _MainAppState();
 }
 
-class _HomePageState extends State<HomePage> {
-  // 1
-  bool _isAcceptTermsAndConditions = false;
-
+class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: const Text('Checkbox problem'),
+        centerTitle: true,
+        backgroundColor: Colors.blue.shade900,
       ),
-      body: Center(
+      body: Container(
+        color: Colors.blue,
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Checkbox(
-                    value: _isAcceptTermsAndConditions,
-                    onChanged: (value) {
-                      setState(() {
-                        // 2
-                        _isAcceptTermsAndConditions = value ?? false;
-                      });
-                    }),
-                Text('I accept the terms and conditions.'),
-              ],
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                onSurface: Colors.green.shade200,
-                shape: BeveledRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-              onPressed: _isAcceptTermsAndConditions
-                  ? () {
-                      print('Submit');
-                    }
-                  : null,
-              child: Text('Click Me!'),
-            ),
+            TwoButtonsWidget(),
           ],
         ),
       ),
     );
+  }
+}
+
+/// TwoButtonsWidget remains stateful only for the reason that it
+/// can so improve performance with avoiding rebuilding it each
+/// time its including widget is rebuilt !
+class TwoButtonsWidget extends StatefulWidget {
+  TwoButtonsWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<TwoButtonsWidget> createState() => _TwoButtonsWidgetState();
+}
+
+class _TwoButtonsWidgetState extends State<TwoButtonsWidget> {
+  Widget? _widgetBody;
+
+  bool _isCheckBoxSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    // if (_widgetBody != null) {
+    //   // Since the TwoButtonsWidget layout is not modified
+    //   // after it has been built, avoiding rebuilding it
+    //   // each time its including widget is rebuilt improves
+    //   // app performance. This is not possible if the widget
+    //   // is stateless !
+    //   return _widgetBody!;
+    // } WARNING: THIS MAKES USING CHECKBOX IMPOSSIBLE !
+    //
+    // After adding a checkbox to the two buttons widget,
+    // this optimization prevented the checkbox to be usable
+    // since the changed checkbox state was not displayed due
+    // to the build method to be exited !
+
+    _widgetBody = Row(
+      children: [
+        Theme(
+          data: ThemeData(
+            unselectedWidgetColor: Colors.white70,
+          ),
+          child: Checkbox(
+            key: const Key('divideFirstBySecond'),
+            value: _isCheckBoxSelected,
+            onChanged: (value) {
+              print('checkbox value: $value');
+              setState(() {
+                _isCheckBoxSelected = value!;
+              });
+              print('checkbox _isCheckBoxSelected: $_isCheckBoxSelected');
+            },
+          ),
+        ),
+        ElevatedButton(
+          key: const Key('editableDateTimeNowButton'),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.blue.shade900),
+          ),
+          onPressed: () {},
+          child: const Text(
+            'Now',
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 20.0,
+        ),
+        ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.blue.shade900),
+          ),
+          onPressed: () {},
+          child: const Text(
+            'Sel',
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+        ),
+      ],
+    );
+
+    return _widgetBody!;
   }
 }
