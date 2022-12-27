@@ -21,19 +21,13 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        supportedLocales: const [
-          Locale('en', ''),
-          Locale('es', ''),
-        ],
+        // supportedLocales: const [
+        //   Locale('en', ''),
+        //   Locale('es', ''),
+        // ],
         localeResolutionCallback:
             (Locale? locale, Iterable<Locale> supportedLocales) {
-          for (Locale supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale!.languageCode ||
-                supportedLocale.countryCode == locale.countryCode) {
-              return supportedLocale;
-            }
-          }
-          return supportedLocales.first;
+          return const Locale('es', '');
         },
         debugShowCheckedModeBanner: false,
         home: Dashboard());
