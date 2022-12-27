@@ -30,6 +30,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           locale: const Locale('en', 'US'),
+          // supportedLocales: context.supportedLocales,
+          // localizationsDelegates: context.localizationDelegates,
           theme: ThemeData(
             appBarTheme: const AppBarTheme(color: Color(0xFF000000)),
           ),
