@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/dashboard_page1.dart';
 import 'package:flutter_localization/dashboard_page2.dart';
@@ -5,9 +7,9 @@ import 'package:flutter_localization/dashboard_page3.dart';
 import 'package:flutter_localization/localizations.dart';
 import 'package:flutter_localization/main.dart';
 
-import 'main.dart';
-
 class Dashboard extends StatefulWidget {
+  const Dashboard({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _DashboardState();

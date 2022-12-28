@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/localizations.dart';
 
-import 'localizations.dart';
-
 class DashboardPage1 extends StatelessWidget {
+  const DashboardPage1({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
