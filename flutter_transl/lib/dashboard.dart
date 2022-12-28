@@ -3,6 +3,9 @@ import 'package:flutter_localization/dashboard_page1.dart';
 import 'package:flutter_localization/dashboard_page2.dart';
 import 'package:flutter_localization/dashboard_page3.dart';
 import 'package:flutter_localization/localizations.dart';
+import 'package:flutter_localization/main.dart';
+
+import 'main.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -35,7 +38,13 @@ class _DashboardState extends State<Dashboard> {
               icon: const Icon(Icons.language),
               tooltip: 'Open shopping cart',
               onPressed: () {
-                print(AppLocalizations.instance.text('title'));
+                Locale currentLocale = MyApp.getLocale(context);
+
+                if (currentLocale == const Locale('en', '')) {
+                  MyApp.setLocale(context, const Locale('es', ''));
+                } else {
+                  MyApp.setLocale(context, const Locale('en', ''));
+                }
               },
             ),
           ],

@@ -8,10 +8,36 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-      .then((_) => runApp(MyApp()));
+      .then((_) => runApp(const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static void setLocale(BuildContext context, Locale newLocale) async {
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
+    state.changeLanguage(newLocale);
+  }
+
+  static Locale getLocale(BuildContext context) {
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
+
+    return state._locale;
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale = const Locale('en');
+
+  changeLanguage(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,13 +47,21 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        // supportedLocales: const [
-        //   Locale('en', ''),
-        //   Locale('es', ''),
-        // ],
-        localeResolutionCallback:
-            (Locale? locale, Iterable<Locale> supportedLocales) {
-          return const Locale('es', '');
+        supportedLocales: const [
+          Locale('en', ''),
+          Locale('es', ''),
+        ],
+        locale: _locale,
+        localeResolutionCallback: (locale, supportedLocales) {
+          if (locale != null) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode &&
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
+            }
+          }
+          return supportedLocales.first;
         },
         debugShowCheckedModeBanner: false,
         home: Dashboard());
