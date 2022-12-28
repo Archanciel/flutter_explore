@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localization/dashboard_page1.dart';
 import 'package:flutter_localization/dashboard_page2.dart';
 import 'package:flutter_localization/dashboard_page3.dart';
-import 'package:flutter_localization/localizations.dart';
+import 'package:flutter_localization/app_localizations_delegate.dart';
 import 'package:flutter_localization/main.dart';
 
 class Dashboard extends StatefulWidget {

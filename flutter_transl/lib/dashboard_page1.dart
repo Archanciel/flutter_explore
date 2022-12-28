@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localization/localizations.dart';
+import 'package:flutter_localization/app_localizations_delegate.dart';
 
 class DashboardPage1 extends StatelessWidget {
   const DashboardPage1({Key? key}) : super(key: key);

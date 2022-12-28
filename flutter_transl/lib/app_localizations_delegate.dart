@@ -4,6 +4,21 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+  const AppLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => ['en', 'es'].contains(locale.languageCode);
+
+  @override
+  Future<AppLocalizations> load(Locale locale)  {
+    return AppLocalizations.instance.load(locale);
+  }
+
+  @override
+  bool shouldReload(AppLocalizationsDelegate old) => true;
+}
+
 class AppLocalizations {
 
   static final AppLocalizations _singleton = AppLocalizations._internal();
@@ -23,21 +38,4 @@ class AppLocalizations {
     return _localisedValues![key] ?? "$key not found";
   }
 }
-
-
-class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
-  const AppLocalizationsDelegate();
-
-  @override
-  bool isSupported(Locale locale) => ['en', 'es'].contains(locale.languageCode);
-
-  @override
-  Future<AppLocalizations> load(Locale locale)  {
-    return AppLocalizations.instance.load(locale);
-  }
-
-  @override
-  bool shouldReload(AppLocalizationsDelegate old) => true;
-}
-
 

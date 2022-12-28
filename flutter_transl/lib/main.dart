@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localization/dashboard.dart';
-import 'package:flutter_localization/localizations.dart';
+import 'package:flutter_localization/app_localizations_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
@@ -17,11 +17,15 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 
+  /// This static method enables to access to the State statefull
+  /// widget instance.
   static void setLocale(BuildContext context, Locale newLocale) async {
     _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
     state.changeLanguage(newLocale);
   }
 
+  /// This static method enables to access to the State statefull
+  /// widget instance.
   static Locale getLocale(BuildContext context) {
     _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
 
