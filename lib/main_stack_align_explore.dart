@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -10,13 +10,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter stack align explore',
       theme: ThemeData.dark(),
-      home: MyStatefulApp(),
+      home: const MyStatefulApp(),
     );
   }
 }
 
 class MyStatefulApp extends StatefulWidget {
-  MyStatefulApp({Key? key}) : super(key: key);
+  const MyStatefulApp({Key? key}) : super(key: key);
 
   @override
   State<MyStatefulApp> createState() => _MyStatefulAppState();
@@ -29,7 +29,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
+          title: const Text(
         'Flutter stack align explore',
       )),
       body: Stack(
@@ -40,20 +40,20 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                     'Flutter stack align explore much better than\nFlutter Stack Align explore'),
-                Text('Two'),
-                Text('Three'),
-                Text('Four'),
+                const Text('Two'),
+                const Text('Three'),
+                const Text('Four'),
                 DecoratedBox(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     border: Border(
                       bottom: BorderSide(color: Colors.yellow),
                     ),
                   ),
                   child: ElevatedButton(
                     onPressed: () => print('aaa'),
-                    child: Text(
+                    child: const Text(
                       'Button',
                     ),
                   ),
@@ -69,7 +69,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                 const Text(''),
                 Container(
                   child: Text(_status),
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 9),
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 9),
                 ),
               ],
             ),
@@ -91,7 +91,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                     }
                   });
                 },
-                child: Text('Reset')),
+                child: const Text('Reset')),
           ),
         ],
       ),
