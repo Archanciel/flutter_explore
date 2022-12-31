@@ -23,8 +23,6 @@ class MyStatefulApp extends StatefulWidget {
 }
 
 class _MyStatefulAppState extends State<MyStatefulApp> {
-  String _status = 'Wake up';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +31,9 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
         'Draggable scrollable sheet explore',
       )),
       body: DraggableScrollableSheet(
-        initialChildSize: 1.0,
-        minChildSize: 0.5,
+        initialChildSize: 1.0, // necessary to use full screen surface
         builder: (BuildContext context, ScrollController scrollController) {
-          return SingleChildScrollView(
+          return SingleChildScrollView( // necessary for scrolling to work
             child: GestureDetector(
               // enables that when clicking above or below a
               // TextField, the keyboard is hidden. Otherwise,
