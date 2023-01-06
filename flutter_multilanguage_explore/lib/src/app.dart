@@ -9,7 +9,7 @@ import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({
     super.key,
     required this.settingsController,
@@ -18,13 +18,43 @@ class MyApp extends StatelessWidget {
   final SettingsController settingsController;
 
   @override
+  State<MyApp> createState() => _MyAppState();
+
+
+  /// This static method enables to access to the State statefull
+  /// widget instance.
+  static void setLocale(BuildContext context, Locale newLocale) async {
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
+    state.changeLanguage(newLocale);
+  }
+
+  /// This static method enables to access to the State statefull
+  /// widget instance.
+  static Locale getLocale(BuildContext context) {
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>()!;
+
+    return state._locale;
+  }
+
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale = const Locale('en');
+
+  changeLanguage(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+  
+  @override
   Widget build(BuildContext context) {
     // Glue the SettingsController to the MaterialApp.
     //
     // The AnimatedBuilder Widget listens to the SettingsController for changes.
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return AnimatedBuilder(
-      animation: settingsController,
+      animation: widget.settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
           // Providing a restorationScopeId allows the Navigator built by the
@@ -61,7 +91,7 @@ class MyApp extends StatelessWidget {
           // SettingsController to display the correct theme.
           theme: ThemeData(),
           darkTheme: ThemeData.dark(),
-          themeMode: settingsController.themeMode,
+          themeMode: widget.settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
@@ -71,7 +101,7 @@ class MyApp extends StatelessWidget {
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
+                    return SettingsView(controller: widget.settingsController);
                   case SampleItemDetailsView.routeName:
                     return const SampleItemDetailsView();
                   case SampleItemListView.routeName:
