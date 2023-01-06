@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import '../generated/l10n.dart';
 import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
@@ -36,13 +37,15 @@ class MyApp extends StatelessWidget {
           // allows descendant Widgets to display the correct translations
           // depending on the user's locale.
           localizationsDelegates: const [
-P            AppLocalizations.delegate,
+            S.delegate,
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: const [
             Locale('en', ''), // English, no country code
+            Locale('fr', ''), // French, no country code
           ],
 
           // Use AppLocalizations to configure the correct application title
