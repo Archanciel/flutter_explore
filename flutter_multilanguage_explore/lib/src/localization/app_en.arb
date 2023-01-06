@@ -1,0 +1,6 @@
+{
+  "appTitle": "flutter_multilanguage_explore",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
