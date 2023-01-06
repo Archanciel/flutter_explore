@@ -1,4 +1,7 @@
 {
+  "@@locale": "en",
   "appTitle": "Sample Items",
-  "settingsViewTitle" : "Settings"
+  "@appTitle": {},
+  "settingsViewTitle": "Settings",
+  "@settingsViewTitle": {}
 }
