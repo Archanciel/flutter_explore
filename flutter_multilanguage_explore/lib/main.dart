@@ -1,3 +1,5 @@
+// https://localizely.com/blog/flutter-localization-step-by-step/?tab=automated-using-flutter-intl
+
 import 'package:flutter/material.dart';
 
 import 'src/app.dart';
