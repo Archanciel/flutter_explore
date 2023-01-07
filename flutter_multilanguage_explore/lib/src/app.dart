@@ -20,7 +20,6 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 
-
   /// This static method enables to access to the State statefull
   /// widget instance.
   static void setLocale(BuildContext context, Locale newLocale) async {
@@ -35,7 +34,6 @@ class MyApp extends StatefulWidget {
 
     return state._locale;
   }
-
 }
 
 class _MyAppState extends State<MyApp> {
@@ -46,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       _locale = locale;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     // Glue the SettingsController to the MaterialApp.
@@ -68,7 +66,7 @@ class _MyAppState extends State<MyApp> {
           // depending on the user's locale.
           localizationsDelegates: const [
             S.delegate,
-            AppLocalizations.delegate,
+            // AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
@@ -84,7 +82,7 @@ class _MyAppState extends State<MyApp> {
           // The appTitle is defined in .arb files found in the localization
           // directory.
           onGenerateTitle: (BuildContext context) =>
-              AppLocalizations.of(context)!.appTitle,
+              S.of(context).appTitle,
 
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
