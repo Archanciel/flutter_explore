@@ -76,13 +76,20 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   'Multiline TextField Enter',
                   style: TextStyle(fontSize: 20),
                 ),
-                TextField(
-                  style: const TextStyle(fontSize: 20),
-                  maxLines: 3,
-                  controller: _controllerEnter,
-                  onSubmitted: (String value) {
-                    // method never called !
-                    debugPrint('\n*** onSubmitted: $value ***\n');
+                Focus(
+                  child: TextField(
+                    style: const TextStyle(fontSize: 20),
+                    maxLines: 3,
+                    controller: _controllerEnter,
+                    onSubmitted: (String value) {
+                      // method never called !
+                      debugPrint('\n*** onSubmitted: $value ***\n');
+                    },
+                  ),
+                  onFocusChange: (value) {
+                    if (!value) {
+                      debugPrint('\n*** onFocusChange: ${_controllerEnter.text} ***\n');
+                    }
                   },
                 ),
               ],
