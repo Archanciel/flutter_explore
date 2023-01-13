@@ -83,6 +83,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   child: TextField(
                     style: const TextStyle(fontSize: 20),
                     maxLines: 3,
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
                     controller: _controllerEnter,
                     onSubmitted: (String value) {
                       // method never called !
@@ -90,8 +92,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     },
                   ),
                   onFocusChange: (value) {
-                    if (!value) {
-                      debugPrint('\n*** onFocusChange: ${_controllerEnter.text} ***\n');
+                    // this method compensate the fact that the
+                    // TextField onSubmitted: method is not called.                    if (!value) {
+                      debugPrint(
+                          '\n*** onFocusChange: ${_controllerEnter.text} ***\n');
                     }
                   },
                 ),
