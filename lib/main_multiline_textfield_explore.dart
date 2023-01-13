@@ -93,7 +93,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   ),
                   onFocusChange: (value) {
                     // this method compensate the fact that the
-                    // TextField onSubmitted: method is not called.                    if (!value) {
+                    // TextField onSubmitted: method is not called.
+                    if (!value) {
                       debugPrint(
                           '\n*** onFocusChange: ${_controllerEnter.text} ***\n');
                     }
