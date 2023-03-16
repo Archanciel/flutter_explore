@@ -1,1 +1,1 @@
-{"name":"My object","color":"Color.green","size":"Size.medium"}
+{"name":"My object","color":"Color.green","size":"Size.medium","items":["item1","item2","item3"],"properties":{"prop1":1,"prop2":"two","prop3":true}}
