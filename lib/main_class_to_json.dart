@@ -93,6 +93,7 @@ class MyClass {
     File(path).writeAsStringSync(jsonStr);
   }
 
+  /// print jsonStr in formatted way
   static void printJsonString({
     required String methodName,
     required String jsonStr,
