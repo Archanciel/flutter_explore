@@ -23,8 +23,11 @@ class MyOtherClass {
       name: json['name'],
       color:
           Color.values.firstWhere((color) => color.toString() == json['color']),
-      items: List<String>.from(json['items']),
-      properties: Map<String, dynamic>.from(json['properties']),
+      items: json['items'].cast<String>(), // cast is required since json list
+      // is List<dynamic>. Cast is more
+      // performant than
+      // List<String>.from(json['items'])
+      properties: json['properties'],
     );
   }
 
@@ -65,8 +68,11 @@ class MyClass {
       color:
           Color.values.firstWhere((color) => color.toString() == json['color']),
       size: Size.values.firstWhere((size) => size.toString() == json['size']),
-      items: List<String>.from(json['items']),
-      properties: Map<String, dynamic>.from(json['properties']),
+      items: json['items'].cast<String>(), // cast is required since json list
+      // is List<dynamic>. Cast is more
+      // performant than
+      // List<String>.from(json['items'])
+      properties: json['properties'],
       otherClass: MyOtherClass.fromJson(json['otherClass']),
       otherClasses: (json['otherClasses'] as List<dynamic>)
           .map((item) => MyOtherClass.fromJson(item))
@@ -83,14 +89,31 @@ class MyClass {
         'otherClass': otherClass.toJson(),
         'otherClasses': otherClasses.map((item) => item.toJson()).toList(),
       };
+}
 
-  void saveToFile(String path) {
-    String jsonStr = json.encode(toJson());
+class JsonDataService {
+  static void saveToFile({
+    required MyClass model,
+    required String path,
+  }) {
+    String jsonStr = json.encode(model.toJson());
     printJsonString(
       methodName: 'saveToFile',
       jsonStr: jsonStr,
     );
     File(path).writeAsStringSync(jsonStr);
+  }
+
+  static MyClass loadFromFile({
+    required String path,
+  }) {
+    String jsonStr = File(path).readAsStringSync();
+    printJsonString(
+      methodName: 'loadFromFile',
+      jsonStr: jsonStr,
+    );
+    Map<String, dynamic> jsonData = json.decode(jsonStr);
+    return MyClass.fromJson(jsonData);
   }
 
   /// print jsonStr in formatted way
@@ -102,16 +125,6 @@ class MyClass {
         JsonEncoder.withIndent('  ').convert(json.decode(jsonStr));
     print('$methodName:\n$prettyJson');
   }
-
-  static MyClass loadFromFile(String path) {
-    String jsonStr = File(path).readAsStringSync();
-    printJsonString(
-      methodName: 'loadFromFile',
-      jsonStr: jsonStr,
-    );
-    Map<String, dynamic> jsonData = json.decode(jsonStr);
-    return MyClass.fromJson(jsonData);
-  }
 }
 
 void main() {
@@ -122,18 +135,21 @@ void main() {
     items: ['item4', 'item5', 'item6'],
     properties: {'prop4': 4, 'prop5': 'five', 'prop6': false},
   );
+
   MyOtherClass otherObj1 = MyOtherClass(
     name: 'Other object 1',
     color: Color.blue,
     items: ['item4', 'item5', 'item6'],
     properties: {'prop4': 4, 'prop5': 'five', 'prop6': false},
   );
+
   MyOtherClass otherObj2 = MyOtherClass(
     name: 'Other object 2',
     color: Color.red,
     items: ['item7', 'item8', 'item9'],
     properties: {'prop7': 7, 'prop8': 'eight', 'prop9': true},
   );
+
   MyClass myObj = MyClass(
     name: 'My object',
     color: Color.green,
@@ -145,10 +161,13 @@ void main() {
   );
 
   // Save myObj to a JSON file
-  myObj.saveToFile('myobj.json');
+  JsonDataService.saveToFile(
+    model: myObj,
+    path: 'myobj.json',
+  );
 
   // Load myObj from the JSON file
-  MyClass loadedObj = MyClass.loadFromFile('myobj.json');
+  MyClass loadedObj = JsonDataService.loadFromFile(path: 'myobj.json');
 
   // Print the loaded object
   print(loadedObj.name); // Output: My object
