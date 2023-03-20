@@ -91,6 +91,9 @@ class MyClass {
       };
 }
 
+typedef FromJsonFunction<T> = T Function(Map<String, dynamic> json);
+typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
+
 class JsonDataService {
   static void saveToFile({
     required MyClass model,
@@ -115,6 +118,73 @@ class JsonDataService {
     Map<String, dynamic> jsonData = json.decode(jsonStr);
     return MyClass.fromJson(jsonData);
   }
+
+// not able to use the next methods. Need to ask ChatGPT !
+
+  static Map<Type, FromJsonFunction> _fromJsonFunctions = {
+    MyClass: (json) => MyClass.fromJson(json),
+    MyOtherClass: (json) => MyOtherClass.fromJson(json),
+  };
+
+  static Map<Type, ToJsonFunction> _toJsonFunctions = {
+    MyClass: (model) => model.toJson(),
+    MyOtherClass: (model) => model.toJson(),
+  };
+
+  static String encodeJson(dynamic data) {
+    if (data is List) {
+      if (data.isNotEmpty) {
+        final type = data.first.runtimeType;
+        final toJson = _toJsonFunctions[type];
+        if (toJson != null) {
+          return jsonEncode(data.map((e) => toJson(e)).toList());
+        }
+      }
+    } else {
+      final type = data.runtimeType;
+      final toJson = _toJsonFunctions[type];
+      if (toJson != null) {
+        return jsonEncode(toJson(data));
+      }
+    }
+
+    return '';
+  }
+
+  static dynamic decodeJson(String jsonString, Type type) {
+    final fromJson = _fromJsonFunctions[type];
+    if (fromJson != null) {
+      final jsonData = jsonDecode(jsonString);
+      if (jsonData is List) {
+        return jsonData.map((e) => fromJson(e)).toList();
+      } else {
+        return fromJson(jsonData);
+      }
+    }
+
+    return null;
+  }
+
+// does not compile
+  // dynamic decodeJson_(String jsonString, Type type) {
+  //   final fromJson = _fromJsonFunctions[type];
+  //   if (fromJson != null) {
+  //     final jsonData = jsonDecode(jsonString);
+  //     if (jsonData is List) {
+  //       if (jsonData.isNotEmpty) {
+  //         final modelType = jsonData.first.runtimeType;
+  //         final listType = <dynamic>[].runtimeType;
+  //         final list = jsonData.map((e) => fromJson(e)).toList();
+  //         return list.cast<modelType>();
+  //       } else {
+  //         return <dynamic>[];
+  //       }
+  //     } else {
+  //       return fromJson(jsonData);
+  //     }
+  //   }
+  //   return null;
+  // }
 
   /// print jsonStr in formatted way
   static void printJsonString({
