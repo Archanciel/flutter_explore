@@ -92,6 +92,11 @@ class MyClass {
         'otherClass': otherClass.toJson(),
         'otherClasses': otherClasses.map((item) => item.toJson()).toList(),
       };
+
+  @override
+  String toString() {
+    return '$name, ${color.toString()}';
+  }
 }
 
 typedef FromJsonFunction<T> = T Function(Map<String, dynamic> jsonDataMap);
@@ -156,36 +161,23 @@ class JsonDataService {
     return '';
   }
 
-  // static dynamic decodeJson(String jsonString, Type type) {
   //   final fromJson = _fromJsonFunctions[type];
-  //   if (fromJson != null) {
-  //     final jsonData = jsonDecode(jsonString);
-  //     if (jsonData is List) {
-  //       return jsonData.map((e) => fromJson(e)).toList();
-  //     } else {
-  //       return fromJson(jsonData);
-  //     }
-  //   }
-
-  //   return null;
-  // }
-
 // does not compile
-  dynamic decodeJson_(String jsonString, Type type) {
-    final fromJson = _fromJsonFunctionsMap[type];
-    if (fromJson != null) {
+  static dynamic decodeJson(String jsonString, Type type) {
+    final fromJsonFunction = _fromJsonFunctionsMap[type];
+    if (fromJsonFunction != null) {
       final jsonData = jsonDecode(jsonString);
       if (jsonData is List) {
-        if (jsonData.isNotEmpty) {
+          if (jsonData.isNotEmpty) {
           final Type modelType = jsonData.first.runtimeType;
           // final listType = <dynamic>[].runtimeType;
-          final list = jsonData.map((e) => fromJson(e)).toList();
+          final list = jsonData.map((e) => fromJsonFunction(e)).toList();
           return list.cast<MyClass>();
         } else {
           return <dynamic>[];
         }
       } else {
-        return fromJson(jsonData);
+        return fromJsonFunction(jsonData);
       }
     }
     return null;
@@ -211,14 +203,14 @@ void main() {
     properties: {'prop4': 4, 'prop5': 'five', 'prop6': false},
   );
 
-  MyOtherClass otherObj1 = MyOtherClass(
+  MyOtherClass myOtherClassInstance_1 = MyOtherClass(
     name: 'Other object 1',
     color: Color.blue,
     items: ['item4', 'item5', 'item6'],
     properties: {'prop4': 4, 'prop5': 'five', 'prop6': false},
   );
 
-  MyOtherClass otherObj2 = MyOtherClass(
+  MyOtherClass myOtherClassInstance_2 = MyOtherClass(
     name: 'Other object 2',
     color: Color.red,
     items: ['item7', 'item8', 'item9'],
@@ -232,7 +224,7 @@ void main() {
     items: ['item1', 'item2', 'item3'],
     properties: {'prop1': 1, 'prop2': 'two', 'prop3': true},
     otherClass: myOtherClassInstance,
-    otherClasses: [otherObj1, otherObj2],
+    otherClasses: [myOtherClassInstance_1, myOtherClassInstance_2],
   );
 
   // Save myObj to a JSON file
@@ -254,8 +246,23 @@ void main() {
   print(loadedObj.otherClasses); // Output:
 
   String myClassJsonStr = JsonDataService.encodeJson(myClassInstance);
-  JsonDataService.printJsonString(methodName: 'myClassInstanceJsonStr', jsonStr: myClassJsonStr);
+  JsonDataService.printJsonString(
+      methodName: 'myClassInstanceJsonStr', jsonStr: myClassJsonStr);
 
   String myOtherClassJsonStr = JsonDataService.encodeJson(myOtherClassInstance);
-  JsonDataService.printJsonString(methodName: 'myOtherClassJsonStr', jsonStr: myOtherClassJsonStr);
+  JsonDataService.printJsonString(
+      methodName: 'myOtherClassJsonStr', jsonStr: myOtherClassJsonStr);
+
+  String myOtherClassListJsonStr = JsonDataService.encodeJson(
+      [myOtherClassInstance_1, myOtherClassInstance_2]);
+  JsonDataService.printJsonString(
+      methodName: 'myOtherClassListJsonStr', jsonStr: myOtherClassListJsonStr);
+
+  MyClass myClassDecodedInstance =
+      JsonDataService.decodeJson(myClassJsonStr, MyClass);
+  print('myClassDecodedInstance: $myClassDecodedInstance');
+
+  MyOtherClass myOtherClassDecodedInstance =
+      JsonDataService.decodeJson(myOtherClassJsonStr, MyOtherClass);
+  print('myClassDecodedInstance: $myOtherClassDecodedInstance');
 }
