@@ -143,13 +143,7 @@ class JsonDataService {
 
   static String encodeJson(dynamic data) {
     if (data is List) {
-      if (data.isNotEmpty) {
-        final type = data.first.runtimeType;
-        final toJsonFunction = _toJsonFunctionsMap[type];
-        if (toJsonFunction != null) {
-          return jsonEncode(data.map((e) => toJsonFunction(e)).toList());
-        }
-      }
+      throw Exception("encodeJson() does not support encoding list's");
     } else {
       final type = data.runtimeType;
       final toJsonFunction = _toJsonFunctionsMap[type];
@@ -161,18 +155,12 @@ class JsonDataService {
     return '';
   }
 
-// does not compile
   static dynamic decodeJson(String jsonString, Type type) {
     final fromJsonFunction = _fromJsonFunctionsMap[type];
     if (fromJsonFunction != null) {
       final jsonData = jsonDecode(jsonString);
       if (jsonData is List) {
-        if (jsonData.isNotEmpty) {
-          final list = jsonData.map((e) => fromJsonFunction(e)).toList();
-          return list;
-        } else {
-          return <dynamic>[];
-        }
+        throw Exception("decodeJson() does not support decoding list's");
       } else {
         return fromJsonFunction(jsonData);
       }
@@ -250,10 +238,12 @@ void main() {
   JsonDataService.printJsonString(
       methodName: 'myOtherClassJsonStr', jsonStr: myOtherClassJsonStr);
 
-  String myOtherClassListJsonStr = JsonDataService.encodeJson(
-      [myOtherClassInstance_1, myOtherClassInstance_2]);
-  JsonDataService.printJsonString(
-      methodName: 'myOtherClassListJsonStr', jsonStr: myOtherClassListJsonStr);
+  try {
+    String myOtherClassListJsonStr = JsonDataService.encodeJson(
+        [myOtherClassInstance_1, myOtherClassInstance_2]);
+  } catch (e) {
+    print(e);
+  }
 
   MyClass myClassDecodedInstance =
       JsonDataService.decodeJson(myClassJsonStr, MyClass);
@@ -261,9 +251,13 @@ void main() {
 
   MyOtherClass myOtherClassDecodedInstance =
       JsonDataService.decodeJson(myOtherClassJsonStr, MyOtherClass);
-  print('myClassDecodedInstance: $myOtherClassDecodedInstance');
+  print('myOtherClassDecodedInstance: $myOtherClassDecodedInstance');
 
-  List<dynamic> myOtherClassListDecodedInstance =
-      JsonDataService.decodeJson(myOtherClassListJsonStr, MyOtherClass);
-  print('myClassDecodedInstance: $myOtherClassListDecodedInstance');
+  try {
+    List<MyOtherClass> myOtherClassListDecodedInstance =
+        JsonDataService.decodeJson(
+            '[$myClassJsonStr, $myClassJsonStr]', MyOtherClass);
+  } catch (e) {
+    print(e);
+  }
 }
