@@ -168,10 +168,8 @@ class JsonDataService {
       final jsonData = jsonDecode(jsonString);
       if (jsonData is List) {
         if (jsonData.isNotEmpty) {
-          final Type modelType = jsonData.first.runtimeType;
-          // final listType = <dynamic>[].runtimeType;
           final list = jsonData.map((e) => fromJsonFunction(e)).toList();
-          return list.cast<MyClass>();
+          return list;
         } else {
           return <dynamic>[];
         }
@@ -264,4 +262,8 @@ void main() {
   MyOtherClass myOtherClassDecodedInstance =
       JsonDataService.decodeJson(myOtherClassJsonStr, MyOtherClass);
   print('myClassDecodedInstance: $myOtherClassDecodedInstance');
+
+  List<dynamic> myOtherClassListDecodedInstance =
+      JsonDataService.decodeJson(myOtherClassListJsonStr, MyOtherClass);
+  print('myClassDecodedInstance: $myOtherClassListDecodedInstance');
 }
