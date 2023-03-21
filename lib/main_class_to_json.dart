@@ -161,14 +161,13 @@ class JsonDataService {
     return '';
   }
 
-  //   final fromJson = _fromJsonFunctions[type];
 // does not compile
   static dynamic decodeJson(String jsonString, Type type) {
     final fromJsonFunction = _fromJsonFunctionsMap[type];
     if (fromJsonFunction != null) {
       final jsonData = jsonDecode(jsonString);
       if (jsonData is List) {
-          if (jsonData.isNotEmpty) {
+        if (jsonData.isNotEmpty) {
           final Type modelType = jsonData.first.runtimeType;
           // final listType = <dynamic>[].runtimeType;
           final list = jsonData.map((e) => fromJsonFunction(e)).toList();
