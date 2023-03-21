@@ -168,7 +168,7 @@ class JsonDataService {
       if (jsonData is List) {
         if (jsonData.isNotEmpty) {
           final list = jsonData.map((e) => fromJsonFunction(e)).toList();
-          return list as T; // Cast the list to the desired type
+          return list as T;
         } else {
           return <T>[] as T; // Return an empty list of the desired type
         }
@@ -269,31 +269,6 @@ void main() {
   JsonDataService.printJsonString(
       methodName: 'myOtherClassJsonStr', jsonStr: myOtherClassJsonStr);
 
-  MyClass myClassInstance_1 = MyClass(
-    name: 'My object one',
-    color: Color.green,
-    size: Size.medium,
-    items: ['item1', 'item2', 'item3'],
-    properties: {'prop1': 1, 'prop2': 'two', 'prop3': true},
-    otherClass: myOtherClassInstance,
-    otherClasses: [myOtherClassInstance_1, myOtherClassInstance_2],
-  );
-
-  MyClass myClassInstance_2 = MyClass(
-    name: 'My object two',
-    color: Color.green,
-    size: Size.medium,
-    items: ['item1', 'item2', 'item3'],
-    properties: {'prop1': 1, 'prop2': 'two', 'prop3': true},
-    otherClass: myOtherClassInstance,
-    otherClasses: [myOtherClassInstance_1, myOtherClassInstance_2],
-  );
-
-  // String myClassListJsonStr = JsonDataService.encodeJson(
-  //     [myClassInstance_1, myClassInstance_2]);
-  // JsonDataService.printJsonString(
-  //     methodName: 'myClassListJsonStr', jsonStr: myClassListJsonStr);
-
   String myOtherClassListJsonStr = JsonDataService.encodeJson(
       [myOtherClassInstance_1, myOtherClassInstance_2]);
   JsonDataService.printJsonString(
@@ -310,13 +285,8 @@ void main() {
           myOtherClassJsonStr, MyOtherClass);
   print('myClassDecodedInstance: $myOtherClassDecodedInstance');
 
-  // List<MyClass> myClassListDecodedInstance =
-  //     JsonDataService.decodeJson<List<MyClass>>(
-  //         myClassListJsonStr, MyClass);
-  // print('myClassDecodedInstance: $myClassListDecodedInstance');
-
   List<MyOtherClass> myOtherClassListDecodedInstance =
       JsonDataService.decodeJson<List<MyOtherClass>>(
-          myOtherClassListJsonStr, MyOtherClass);
+          myOtherClassListJsonStr, List<MyOtherClass>);
   print('myClassDecodedInstance: $myOtherClassListDecodedInstance');
 }
