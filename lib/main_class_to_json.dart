@@ -18,16 +18,17 @@ class MyOtherClass {
     required this.properties,
   });
 
-  factory MyOtherClass.fromJson(Map<String, dynamic> json) {
+  factory MyOtherClass.fromJson(Map<String, dynamic> jsonDataMap) {
     return MyOtherClass(
-      name: json['name'],
-      color:
-          Color.values.firstWhere((color) => color.toString() == json['color']),
-      items: json['items'].cast<String>(), // cast is required since json list
+      name: jsonDataMap['name'],
+      color: Color.values
+          .firstWhere((color) => color.toString() == jsonDataMap['color']),
+      items: jsonDataMap['items']
+          .cast<String>(), // cast is required since json list
       // is List<dynamic>. Cast is more
       // performant than
       // List<String>.from(json['items'])
-      properties: json['properties'],
+      properties: jsonDataMap['properties'],
     );
   }
 
@@ -62,19 +63,21 @@ class MyClass {
       required this.otherClass,
       required this.otherClasses});
 
-  factory MyClass.fromJson(Map<String, dynamic> json) {
+  factory MyClass.fromJson(Map<String, dynamic> jsonDataMap) {
     return MyClass(
-      name: json['name'],
-      color:
-          Color.values.firstWhere((color) => color.toString() == json['color']),
-      size: Size.values.firstWhere((size) => size.toString() == json['size']),
-      items: json['items'].cast<String>(), // cast is required since json list
+      name: jsonDataMap['name'],
+      color: Color.values
+          .firstWhere((color) => color.toString() == jsonDataMap['color']),
+      size: Size.values
+          .firstWhere((size) => size.toString() == jsonDataMap['size']),
+      items: jsonDataMap['items']
+          .cast<String>(), // cast is required since json list
       // is List<dynamic>. Cast is more
       // performant than
       // List<String>.from(json['items'])
-      properties: json['properties'],
-      otherClass: MyOtherClass.fromJson(json['otherClass']),
-      otherClasses: (json['otherClasses'] as List<dynamic>)
+      properties: jsonDataMap['properties'],
+      otherClass: MyOtherClass.fromJson(jsonDataMap['otherClass']),
+      otherClasses: (jsonDataMap['otherClasses'] as List<dynamic>)
           .map((item) => MyOtherClass.fromJson(item))
           .toList(),
     );
@@ -91,7 +94,7 @@ class MyClass {
       };
 }
 
-typedef FromJsonFunction<T> = T Function(Map<String, dynamic> json);
+typedef FromJsonFunction<T> = T Function(Map<String, dynamic> jsonDataMap);
 typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
 
 class JsonDataService {
@@ -121,12 +124,14 @@ class JsonDataService {
 
 // not able to use the next methods. Need to ask ChatGPT !
 
-  static Map<Type, FromJsonFunction> _fromJsonFunctions = {
-    MyClass: (json) => MyClass.fromJson(json),
-    MyOtherClass: (json) => MyOtherClass.fromJson(json),
+// typedef FromJsonFunction<T> = T Function(Map<String, dynamic> jsonDataMap);
+  static Map<Type, FromJsonFunction> _fromJsonFunctionsMap = {
+    MyClass: (jsonDataMap) => MyClass.fromJson(jsonDataMap),
+    MyOtherClass: (jsonDataMap) => MyOtherClass.fromJson(jsonDataMap),
   };
 
-  static Map<Type, ToJsonFunction> _toJsonFunctions = {
+// typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
+  static Map<Type, ToJsonFunction> _toJsonFunctionsMap = {
     MyClass: (model) => model.toJson(),
     MyOtherClass: (model) => model.toJson(),
   };
@@ -135,56 +140,56 @@ class JsonDataService {
     if (data is List) {
       if (data.isNotEmpty) {
         final type = data.first.runtimeType;
-        final toJson = _toJsonFunctions[type];
-        if (toJson != null) {
-          return jsonEncode(data.map((e) => toJson(e)).toList());
+        final toJsonFunction = _toJsonFunctionsMap[type];
+        if (toJsonFunction != null) {
+          return jsonEncode(data.map((e) => toJsonFunction(e)).toList());
         }
       }
     } else {
       final type = data.runtimeType;
-      final toJson = _toJsonFunctions[type];
-      if (toJson != null) {
-        return jsonEncode(toJson(data));
+      final toJsonFunction = _toJsonFunctionsMap[type];
+      if (toJsonFunction != null) {
+        return jsonEncode(toJsonFunction(data));
       }
     }
 
     return '';
   }
 
-  static dynamic decodeJson(String jsonString, Type type) {
-    final fromJson = _fromJsonFunctions[type];
-    if (fromJson != null) {
-      final jsonData = jsonDecode(jsonString);
-      if (jsonData is List) {
-        return jsonData.map((e) => fromJson(e)).toList();
-      } else {
-        return fromJson(jsonData);
-      }
-    }
-
-    return null;
-  }
-
-// does not compile
-  // dynamic decodeJson_(String jsonString, Type type) {
+  // static dynamic decodeJson(String jsonString, Type type) {
   //   final fromJson = _fromJsonFunctions[type];
   //   if (fromJson != null) {
   //     final jsonData = jsonDecode(jsonString);
   //     if (jsonData is List) {
-  //       if (jsonData.isNotEmpty) {
-  //         final modelType = jsonData.first.runtimeType;
-  //         final listType = <dynamic>[].runtimeType;
-  //         final list = jsonData.map((e) => fromJson(e)).toList();
-  //         return list.cast<modelType>();
-  //       } else {
-  //         return <dynamic>[];
-  //       }
+  //       return jsonData.map((e) => fromJson(e)).toList();
   //     } else {
   //       return fromJson(jsonData);
   //     }
   //   }
+
   //   return null;
   // }
+
+// does not compile
+  dynamic decodeJson_(String jsonString, Type type) {
+    final fromJson = _fromJsonFunctionsMap[type];
+    if (fromJson != null) {
+      final jsonData = jsonDecode(jsonString);
+      if (jsonData is List) {
+        if (jsonData.isNotEmpty) {
+          final Type modelType = jsonData.first.runtimeType;
+          // final listType = <dynamic>[].runtimeType;
+          final list = jsonData.map((e) => fromJson(e)).toList();
+          return list.cast<MyClass>();
+        } else {
+          return <dynamic>[];
+        }
+      } else {
+        return fromJson(jsonData);
+      }
+    }
+    return null;
+  }
 
   /// print jsonStr in formatted way
   static void printJsonString({
@@ -199,7 +204,7 @@ class JsonDataService {
 
 void main() {
   // Create an instance of MyClass
-  MyOtherClass otherObj = MyOtherClass(
+  MyOtherClass myOtherClassInstance = MyOtherClass(
     name: 'Other object',
     color: Color.blue,
     items: ['item4', 'item5', 'item6'],
@@ -220,19 +225,19 @@ void main() {
     properties: {'prop7': 7, 'prop8': 'eight', 'prop9': true},
   );
 
-  MyClass myObj = MyClass(
+  MyClass myClassInstance = MyClass(
     name: 'My object',
     color: Color.green,
     size: Size.medium,
     items: ['item1', 'item2', 'item3'],
     properties: {'prop1': 1, 'prop2': 'two', 'prop3': true},
-    otherClass: otherObj,
+    otherClass: myOtherClassInstance,
     otherClasses: [otherObj1, otherObj2],
   );
 
   // Save myObj to a JSON file
   JsonDataService.saveToFile(
-    model: myObj,
+    model: myClassInstance,
     path: 'myobj.json',
   );
 
@@ -247,4 +252,10 @@ void main() {
   print(loadedObj.properties); // Output:
   print(loadedObj.otherClass); // Output:
   print(loadedObj.otherClasses); // Output:
+
+  String myClassJsonStr = JsonDataService.encodeJson(myClassInstance);
+  JsonDataService.printJsonString(methodName: 'myClassInstanceJsonStr', jsonStr: myClassJsonStr);
+
+  String myOtherClassJsonStr = JsonDataService.encodeJson(myOtherClassInstance);
+  JsonDataService.printJsonString(methodName: 'myOtherClassJsonStr', jsonStr: myOtherClassJsonStr);
 }
