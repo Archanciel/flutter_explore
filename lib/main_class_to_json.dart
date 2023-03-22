@@ -143,7 +143,8 @@ class JsonDataService {
 
   static String encodeJson(dynamic data) {
     if (data is List) {
-      throw Exception("encodeJson() does not support encoding list's");
+      throw Exception(
+          "encodeJson() does not support encoding list's. Use encodeJsonList() instead.");
     } else {
       final type = data.runtimeType;
       final toJsonFunction = _toJsonFunctionsMap[type];
@@ -160,12 +161,49 @@ class JsonDataService {
     if (fromJsonFunction != null) {
       final jsonData = jsonDecode(jsonString);
       if (jsonData is List) {
-        throw Exception("decodeJson() does not support decoding list's");
+        throw Exception(
+            "decodeJson() does not support decoding list's. Use decodeJsonList() instead.");
       } else {
         return fromJsonFunction(jsonData);
       }
     }
     return null;
+  }
+
+  static String encodeJsonList(dynamic data) {
+    if (data is List) {
+      if (data.isNotEmpty) {
+        final type = data.first.runtimeType;
+        final toJsonFunction = _toJsonFunctionsMap[type];
+        if (toJsonFunction != null) {
+          return jsonEncode(data.map((e) => toJsonFunction(e)).toList());
+        }
+      }
+    } else {
+      throw Exception(
+          "encodeJsonList() only supports encoding list's. Use encodeJson() instead.");
+    }
+
+    return '';
+  }
+
+  static List<T> decodeJsonList<T>(String jsonString, Type type) {
+    final fromJsonFunction = _fromJsonFunctionsMap[type];
+    if (fromJsonFunction != null) {
+      final jsonData = jsonDecode(jsonString);
+      if (jsonData is List) {
+        if (jsonData.isNotEmpty) {
+          final list = jsonData.map((e) => fromJsonFunction(e)).toList();
+          return list.cast<T>(); // Cast the list to the desired type
+        } else {
+          return <T>[]; // Return an empty list of the desired type
+        }
+      } else {
+        throw Exception(
+            "decodeJsonList() only supports decoding list's. Use decodeJson() instead.");
+      }
+    }
+    throw Exception('fromJsonFunction not found for type: $type');
   }
 
   /// print jsonStr in formatted way
@@ -235,8 +273,17 @@ void main() {
       methodName: 'myClassInstanceJsonStr', jsonStr: myClassJsonStr);
 
   String myOtherClassJsonStr = JsonDataService.encodeJson(myOtherClassInstance);
+
   JsonDataService.printJsonString(
-      methodName: 'myOtherClassJsonStr', jsonStr: myOtherClassJsonStr);
+      methodName: 'myOtherClassListJsonStr encodeJsonList()',
+      jsonStr: myOtherClassJsonStr);
+
+  try {
+    String myOtherClassListJsonStr =
+        JsonDataService.encodeJsonList(myOtherClassInstance);
+  } catch (e) {
+    print(e);
+  }
 
   try {
     String myOtherClassListJsonStr = JsonDataService.encodeJson(
@@ -245,19 +292,32 @@ void main() {
     print(e);
   }
 
+  String myOtherClassListJsonStr = JsonDataService.encodeJsonList(
+      [myOtherClassInstance_1, myOtherClassInstance_2]);
+
+  JsonDataService.printJsonString(
+      methodName: 'myOtherClassListJsonStr encodeJsonList()',
+      jsonStr: myOtherClassListJsonStr);
+
   MyClass myClassDecodedInstance =
       JsonDataService.decodeJson(myClassJsonStr, MyClass);
   print('myClassDecodedInstance: $myClassDecodedInstance');
-
-  MyOtherClass myOtherClassDecodedInstance =
-      JsonDataService.decodeJson(myOtherClassJsonStr, MyOtherClass);
-  print('myOtherClassDecodedInstance: $myOtherClassDecodedInstance');
-
+ 
   try {
-    List<MyOtherClass> myOtherClassListDecodedInstance =
-        JsonDataService.decodeJson(
-            '[$myClassJsonStr, $myClassJsonStr]', MyOtherClass);
+    var myClassDecodedInstance =
+        JsonDataService.decodeJsonList(myClassJsonStr, MyClass);
   } catch (e) {
     print(e);
   }
+
+  try {
+    List<MyOtherClass> myOtherClassListDecoded = JsonDataService.decodeJson(
+        '[$myClassJsonStr, $myClassJsonStr]', MyOtherClass);
+  } catch (e) {
+    print(e);
+  }
+
+  List<MyOtherClass> myOtherClassListDecoded = JsonDataService.decodeJsonList(
+      '[$myClassJsonStr, $myClassJsonStr]', MyOtherClass);
+  print('myOtherClassListDecoded: $myOtherClassListDecoded');
 }

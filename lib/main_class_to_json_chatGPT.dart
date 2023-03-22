@@ -58,7 +58,7 @@ class JsonDataService {
     MyOtherClass: (model) => model.toJson(),
   };
 
-  static String encodeJson(dynamic data) {
+  static String encodeJsonList(dynamic data) {
     if (data is List) {
       if (data.isNotEmpty) {
         final type = data.first.runtimeType;
@@ -68,33 +68,11 @@ class JsonDataService {
         }
       }
     } else {
-      final type = data.runtimeType;
-      final toJsonFunction = _toJsonFunctionsMap[type];
-      if (toJsonFunction != null) {
-        return jsonEncode(toJsonFunction(data));
-      }
+        throw Exception("encodeJsonList() only support encoding list's. Use encodeJson() instead.");
     }
 
     return '';
   }
-
-  // static dynamic decodeJson(String jsonString, Type type) {
-  //   final fromJsonFunction = _fromJsonFunctionsMap[type];
-  //   if (fromJsonFunction != null) {
-  //     final jsonData = jsonDecode(jsonString);
-  //     if (jsonData is List) {
-  //       if (jsonData.isNotEmpty) {
-  //         final list = jsonData.map((e) => fromJsonFunction(e)).toList();
-  //         return list;
-  //       } else {
-  //         return <dynamic>[];
-  //       }
-  //     } else {
-  //       return fromJsonFunction(jsonData);
-  //     }
-  //   }
-  //   return null;
-  // }
 
   static List<T> decodeJsonList<T>(String jsonString, Type type) {
     final fromJsonFunction = _fromJsonFunctionsMap[type];
@@ -140,7 +118,7 @@ void main() {
     properties: {'prop7': 7, 'prop8': 'eight', 'prop9': true},
   );
 
-  String myOtherClassListJsonStr = JsonDataService.encodeJson(
+  String myOtherClassListJsonStr = JsonDataService.encodeJsonList(
       [myOtherClassInstance_1, myOtherClassInstance_2]);
   JsonDataService.printJsonString(
       methodName: 'myOtherClassListJsonStr', jsonStr: myOtherClassListJsonStr);
