@@ -72,9 +72,9 @@ class MyClass {
           .firstWhere((size) => size.toString() == jsonDataMap['size']),
       items: jsonDataMap['items']
           .cast<String>(), // cast is required since json list
-      // is List<dynamic>. Cast is more
-      // performant than
-      // List<String>.from(json['items'])
+      //                      is List<dynamic>. Cast is more
+      //                      performant than
+      //                      List<String>.from(json['items'])
       properties: jsonDataMap['properties'],
       otherClass: MyOtherClass.fromJson(jsonDataMap['otherClass']),
       otherClasses: (jsonDataMap['otherClasses'] as List<dynamic>)
@@ -125,7 +125,11 @@ class JsonDataService {
       jsonStr: jsonStr,
     );
 
-    return decodeJson(jsonStr, type);
+    try {
+      return decodeJson(jsonStr, type);
+    } on StateError {
+      throw StateError('Class ${type.toString()} not stored in $path file');
+    }
   }
 
 // not able to use the next methods. Need to ask ChatGPT !
@@ -261,19 +265,46 @@ void main() {
   );
 
   // Load myClassInstance from the JSON file
-  MyClass loadedObj = JsonDataService.loadFromFile(
+  MyClass loadedMyClass = JsonDataService.loadFromFile(
     path: 'myobj.json',
     type: MyClass,
   );
 
   // Print the loaded object
-  print(loadedObj.name); // Output: My object
-  print(loadedObj.color); // Output: Color.green
-  print(loadedObj.size); // Output: Size.medium
-  print(loadedObj.items); // Output: [item1, item2, item3]
-  print(loadedObj.properties); // Output:
-  print(loadedObj.otherClass); // Output:
-  print(loadedObj.otherClasses); // Output:
+  print(loadedMyClass.name); // Output: My object
+  print(loadedMyClass.color); // Output: Color.green
+  print(loadedMyClass.size); // Output: Size.medium
+  print(loadedMyClass.items); // Output: [item1, item2, item3]
+  print(loadedMyClass.properties); // Output:
+  print(loadedMyClass.otherClass); // Output:
+  print(loadedMyClass.otherClasses); // Output:
+
+  // Save myOtherClassInstance to a JSON file
+  JsonDataService.saveToFile(
+    model: myOtherClassInstance,
+    path: 'myobj.json',
+  );
+
+  // Load myClassInstance from the JSON file containing myOtherClassInstance
+  try {
+    MyOtherClass loadedMyOtherClass = JsonDataService.loadFromFile(
+      path: 'myobj.json',
+      type: MyClass,
+    );
+  } catch (e) {
+    print(e);
+  }
+
+  MyOtherClass loadedMyOtherClass = JsonDataService.loadFromFile(
+    path: 'myobj.json',
+    type: MyOtherClass,
+  );
+
+  // Print the loaded object
+  print(loadedMyOtherClass.name); // Output: My object
+  print(loadedMyOtherClass.color); // Output: Color.green
+  print(loadedMyOtherClass.items); // Output: [item1, item2, item3]
+  print(loadedMyOtherClass.properties); // Output:
 
   String myClassJsonStr = JsonDataService.encodeJson(myClassInstance);
   JsonDataService.printJsonString(
