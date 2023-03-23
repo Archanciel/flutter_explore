@@ -104,10 +104,10 @@ typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
 
 class JsonDataService {
   static void saveToFile({
-    required MyClass model,
+    required dynamic model,
     required String path,
   }) {
-    String jsonStr = json.encode(model.toJson());
+    String jsonStr = encodeJson(model);
     printJsonString(
       methodName: 'saveToFile',
       jsonStr: jsonStr,
@@ -250,13 +250,13 @@ void main() {
     otherClasses: [myOtherClassInstance_1, myOtherClassInstance_2],
   );
 
-  // Save myObj to a JSON file
+  // Save myClassInstance to a JSON file
   JsonDataService.saveToFile(
     model: myClassInstance,
     path: 'myobj.json',
   );
 
-  // Load myObj from the JSON file
+  // Load myClassInstance from the JSON file
   MyClass loadedObj = JsonDataService.loadFromFile(path: 'myobj.json');
 
   // Print the loaded object
