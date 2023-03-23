@@ -102,6 +102,25 @@ class MyClass {
 typedef FromJsonFunction<T> = T Function(Map<String, dynamic> jsonDataMap);
 typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
 
+class ClassNotContainedInJsonFileException implements Exception {
+  String _className;
+  String _jsonFilePathName;
+  StackTrace _stackTrace;
+
+  ClassNotContainedInJsonFileException({
+    required String className,
+    required String jsonFilePathName,
+    StackTrace? stackTrace,
+  })  : _className = className,
+        _jsonFilePathName = jsonFilePathName,
+        _stackTrace = stackTrace ?? StackTrace.current;
+
+  @override
+  String toString() {
+    return ('Class $_className not stored in $_jsonFilePathName file.\nStack Trace:\n$_stackTrace');
+  }
+}
+
 class JsonDataService {
   static void saveToFile({
     required dynamic model,
@@ -128,7 +147,10 @@ class JsonDataService {
     try {
       return decodeJson(jsonStr, type);
     } on StateError {
-      throw StateError('Class ${type.toString()} not stored in $path file');
+      throw ClassNotContainedInJsonFileException(
+        className: type.toString(),
+        jsonFilePathName: path,
+      );
     }
   }
 
