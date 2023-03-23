@@ -200,6 +200,38 @@ class JsonDataService {
     return null;
   }
 
+  static void saveListToFile({
+    required dynamic data,
+    required String path,
+  }) {
+    String jsonStr = encodeJsonList(data);
+    printJsonString(
+      methodName: 'saveToFile',
+      jsonStr: jsonStr,
+    );
+    File(path).writeAsStringSync(jsonStr);
+  }
+
+  static List<T> loadListFromFile<T>({
+    required String path,
+    required Type type,
+  }) {
+    String jsonStr = File(path).readAsStringSync();
+    printJsonString(
+      methodName: 'loadFromFile',
+      jsonStr: jsonStr,
+    );
+
+    try {
+      return decodeJsonList(jsonStr, type);
+    } on StateError {
+      throw ClassNotContainedInJsonFileException(
+        className: type.toString(),
+        jsonFilePathName: path,
+      );
+    }
+  }
+
   static String encodeJsonList(dynamic data) {
     if (data is List) {
       if (data.isNotEmpty) {
@@ -217,7 +249,10 @@ class JsonDataService {
     return '';
   }
 
-  static List<T> decodeJsonList<T>(String jsonString, Type type) {
+  static List<T> decodeJsonList<T>(
+    String jsonString,
+    Type type,
+  ) {
     final fromJsonFunction = _fromJsonFunctionsMap[type];
     if (fromJsonFunction != null) {
       final jsonData = jsonDecode(jsonString);
