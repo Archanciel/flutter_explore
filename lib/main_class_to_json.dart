@@ -178,7 +178,7 @@ class JsonDataService {
 
     try {
       return decodeJson(jsonStr, type);
-    } on StateError {
+    } catch(e) {
       throw ClassNotContainedInJsonFileException(
         className: type.toString(),
         jsonFilePathName: path,
