@@ -121,6 +121,38 @@ class ClassNotContainedInJsonFileException implements Exception {
   }
 }
 
+class ClassNotSupportedByToJsonDataServiceException implements Exception {
+  String _className;
+  StackTrace _stackTrace;
+
+  ClassNotSupportedByToJsonDataServiceException({
+    required String className,
+    StackTrace? stackTrace,
+  })  : _className = className,
+        _stackTrace = stackTrace ?? StackTrace.current;
+
+  @override
+  String toString() {
+    return ('Class $_className has no entry in JsonDataService._toJsonFunctionsMap.\nStack Trace:\n$_stackTrace');
+  }
+}
+
+class ClassNotSupportedByFromJsonDataServiceException implements Exception {
+  String _className;
+  StackTrace _stackTrace;
+
+  ClassNotSupportedByFromJsonDataServiceException({
+    required String className,
+    StackTrace? stackTrace,
+  })  : _className = className,
+        _stackTrace = stackTrace ?? StackTrace.current;
+
+  @override
+  String toString() {
+    return ('Class $_className has no entry in JsonDataService._fromJsonFunctionsMap.\nStack Trace:\n$_stackTrace');
+  }
+}
+
 class JsonDataService {
   static void saveToFile({
     required dynamic model,
@@ -239,6 +271,10 @@ class JsonDataService {
         final toJsonFunction = _toJsonFunctionsMap[type];
         if (toJsonFunction != null) {
           return jsonEncode(data.map((e) => toJsonFunction(e)).toList());
+        } else {
+          throw ClassNotSupportedByToJsonDataServiceException(
+            className: type.toString(),
+          );
         }
       }
     } else {
@@ -267,8 +303,11 @@ class JsonDataService {
         throw Exception(
             "decodeJsonList() only supports decoding list's. Use decodeJson() instead.");
       }
+    } else {
+      throw ClassNotSupportedByFromJsonDataServiceException(
+        className: type.toString(),
+      );
     }
-    throw Exception('fromJsonFunction not found for type: $type');
   }
 
   /// print jsonStr in formatted way
@@ -373,6 +412,7 @@ void main() {
       methodName: 'myOtherClassListJsonStr encodeJsonList()',
       jsonStr: myOtherClassJsonStr);
 
+  // Causes Exception: encodeJsonList() only supports encoding list's. Use encodeJson() instead.
   try {
     String myOtherClassListJsonStr =
         JsonDataService.encodeJsonList(myOtherClassInstance);
@@ -380,6 +420,7 @@ void main() {
     print(e);
   }
 
+  // Causes Exception: encodeJson() does not support encoding list's. Use encodeJsonList() instead.
   try {
     String myOtherClassListJsonStr = JsonDataService.encodeJson(
         [myOtherClassInstance_1, myOtherClassInstance_2]);
@@ -398,6 +439,7 @@ void main() {
       JsonDataService.decodeJson(myClassJsonStr, MyClass);
   print('myClassDecodedInstance: $myClassDecodedInstance');
 
+  // Causes Exception: decodeJsonList() only supports decoding list's. Use decodeJson() instead.
   try {
     var myClassDecodedInstance =
         JsonDataService.decodeJsonList(myClassJsonStr, MyClass);
@@ -405,6 +447,7 @@ void main() {
     print(e);
   }
 
+  // Causes Exception: decodeJson() does not support decoding list's. Use decodeJsonList() instead.
   try {
     List<MyOtherClass> myOtherClassListDecoded = JsonDataService.decodeJson(
         '[$myClassJsonStr, $myClassJsonStr]', MyOtherClass);
@@ -415,4 +458,26 @@ void main() {
   List<MyOtherClass> myOtherClassListDecoded = JsonDataService.decodeJsonList(
       '[$myClassJsonStr, $myClassJsonStr]', MyOtherClass);
   print('myOtherClassListDecoded: $myOtherClassListDecoded');
+
+  // Save myOtherClassInstance to a JSON file
+  JsonDataService.saveListToFile(
+    data: [myOtherClassInstance_1, myOtherClassInstance_2],
+    path: 'myobj.json',
+  );
+
+  // Causes Exception: Class String has no entry in JsonDataService._toJsonFunctionsMap.
+  try {
+    // Save myOtherClassInstance to a JSON file
+    JsonDataService.saveListToFile(
+      data: [myClassJsonStr, myClassJsonStr],
+      path: 'myobj.json',
+    );
+  } catch (e) {
+    print(e);
+  }
+
+  List<MyClass> loadedMyOtherClassList = JsonDataService.loadListFromFile(
+    path: 'myobj.json',
+    type: MyOtherClass,
+  );
 }

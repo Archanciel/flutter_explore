@@ -1,1 +1,1 @@
-{"name":"Other object","color":"Color.blue","items":["item4","item5","item6"],"properties":{"prop4":4,"prop5":"five","prop6":false}}
+[{"name":"Other object 1","color":"Color.blue","items":["item4","item5","item6"],"properties":{"prop4":4,"prop5":"five","prop6":false}},{"name":"Other object 2","color":"Color.red","items":["item7","item8","item9"],"properties":{"prop7":7,"prop8":"eight","prop9":true}}]
