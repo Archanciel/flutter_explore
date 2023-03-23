@@ -26,23 +26,6 @@ class MyTestClass {
   }
 }
 
-MyOtherClass myOtherClassInstance = MyOtherClass(
-  name: 'Other object',
-  color: Color.blue,
-  items: ['item4', 'item5', 'item6'],
-  properties: {'prop4': 4, 'prop5': 'five', 'prop6': false},
-);
-
-MyClass myClassInstance = MyClass(
-  name: 'My object',
-  color: Color.green,
-  size: Size.medium,
-  items: ['item1', 'item2', 'item3'],
-  properties: {'prop1': 1, 'prop2': 'two', 'prop3': true},
-  otherClass: myOtherClassInstance,
-  otherClasses: [myOtherClassInstance],
-);
-
 void main() {
   const jsonPath = 'test.json';
 
@@ -162,8 +145,7 @@ void main() {
         expect(e, isA<ClassNotSupportedByToJsonDataServiceException>());
       }
     });
-    test('saveListToFile() ClassNotSupportedByFromJsonDataServiceException',
-        () async {
+    test('saveListToFile() ClassNotSupportedByFromJsonDataServiceException', () async {
       // Prepare test data
       MyClass myClassInstance = MyClass(
         name: 'My object',
@@ -197,8 +179,8 @@ void main() {
 
       // Load the list from the file
       try {
-        List<MyTestClass> loadedList =
-            JsonDataService.loadListFromFile(path: jsonPath, type: MyTestClass);
+        List<MyTestClass> loadedList = JsonDataService.loadListFromFile(
+            path: jsonPath, type: MyTestClass);
       } catch (e) {
         expect(e, isA<ClassNotSupportedByFromJsonDataServiceException>());
       }
@@ -207,11 +189,29 @@ void main() {
       File(jsonPath).deleteSync();
     });
     test('saveListToFile() and loadListFromFile()', () async {
+      MyOtherClass myOtherClassInstance = MyOtherClass(
+        name: 'Other object',
+        color: Color.blue,
+        items: ['item4', 'item5', 'item6'],
+        properties: {'prop4': 4, 'prop5': 'five', 'prop6': false},
+      );
+
+      MyClass myClassInstance = MyClass(
+        name: 'My object',
+        color: Color.green,
+        size: Size.medium,
+        items: ['item1', 'item2', 'item3'],
+        properties: {'prop1': 1, 'prop2': 'two', 'prop3': true},
+        otherClass: myOtherClassInstance,
+        otherClasses: [myOtherClassInstance],
+      );
+
       // Prepare test data
       List<MyClass> testList = [myClassInstance];
 
       // Save the list to a file
-      JsonDataService.saveListToFile(path: jsonPath, data: testList);
+      JsonDataService.saveListToFile(
+          path: jsonPath, data: testList);
 
       // Load the list from the file
       List<MyClass> loadedList =
