@@ -154,15 +154,23 @@ class ClassNotSupportedByFromJsonDataServiceException implements Exception {
 }
 
 class JsonDataService {
+  // typedef FromJsonFunction<T> = T Function(Map<String, dynamic> jsonDataMap);
+  static final Map<Type, FromJsonFunction> _fromJsonFunctionsMap = {
+    MyClass: (jsonDataMap) => MyClass.fromJson(jsonDataMap),
+    MyOtherClass: (jsonDataMap) => MyOtherClass.fromJson(jsonDataMap),
+  };
+
+  // typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
+  static final Map<Type, ToJsonFunction> _toJsonFunctionsMap = {
+    MyClass: (model) => model.toJson(),
+    MyOtherClass: (model) => model.toJson(),
+  };
+
   static void saveToFile({
     required dynamic model,
     required String path,
   }) {
-    String jsonStr = encodeJson(model);
-    printJsonString(
-      methodName: 'saveToFile',
-      jsonStr: jsonStr,
-    );
+    final String jsonStr = encodeJson(model);
     File(path).writeAsStringSync(jsonStr);
   }
 
@@ -170,11 +178,7 @@ class JsonDataService {
     required String path,
     required Type type,
   }) {
-    String jsonStr = File(path).readAsStringSync();
-    printJsonString(
-      methodName: 'loadFromFile',
-      jsonStr: jsonStr,
-    );
+    final String jsonStr = File(path).readAsStringSync();
 
     try {
       return decodeJson(jsonStr, type);
@@ -185,20 +189,6 @@ class JsonDataService {
       );
     }
   }
-
-// not able to use the next methods. Need to ask ChatGPT !
-
-// typedef FromJsonFunction<T> = T Function(Map<String, dynamic> jsonDataMap);
-  static Map<Type, FromJsonFunction> _fromJsonFunctionsMap = {
-    MyClass: (jsonDataMap) => MyClass.fromJson(jsonDataMap),
-    MyOtherClass: (jsonDataMap) => MyOtherClass.fromJson(jsonDataMap),
-  };
-
-// typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
-  static Map<Type, ToJsonFunction> _toJsonFunctionsMap = {
-    MyClass: (model) => model.toJson(),
-    MyOtherClass: (model) => model.toJson(),
-  };
 
   static String encodeJson(dynamic data) {
     if (data is List) {
@@ -220,6 +210,7 @@ class JsonDataService {
     Type type,
   ) {
     final fromJsonFunction = _fromJsonFunctionsMap[type];
+
     if (fromJsonFunction != null) {
       final jsonData = jsonDecode(jsonString);
       if (jsonData is List) {
@@ -229,6 +220,7 @@ class JsonDataService {
         return fromJsonFunction(jsonData);
       }
     }
+
     return null;
   }
 
@@ -237,10 +229,6 @@ class JsonDataService {
     required String path,
   }) {
     String jsonStr = encodeJsonList(data);
-    printJsonString(
-      methodName: 'saveToFile',
-      jsonStr: jsonStr,
-    );
     File(path).writeAsStringSync(jsonStr);
   }
 
@@ -249,10 +237,6 @@ class JsonDataService {
     required Type type,
   }) {
     String jsonStr = File(path).readAsStringSync();
-    printJsonString(
-      methodName: 'loadFromFile',
-      jsonStr: jsonStr,
-    );
 
     try {
       return decodeJsonList(jsonStr, type);
@@ -290,6 +274,7 @@ class JsonDataService {
     Type type,
   ) {
     final fromJsonFunction = _fromJsonFunctionsMap[type];
+    
     if (fromJsonFunction != null) {
       final jsonData = jsonDecode(jsonString);
       if (jsonData is List) {
