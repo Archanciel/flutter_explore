@@ -115,16 +115,17 @@ class JsonDataService {
     File(path).writeAsStringSync(jsonStr);
   }
 
-  static MyClass loadFromFile({
+  static dynamic loadFromFile({
     required String path,
+    required Type type,
   }) {
     String jsonStr = File(path).readAsStringSync();
     printJsonString(
       methodName: 'loadFromFile',
       jsonStr: jsonStr,
     );
-    Map<String, dynamic> jsonData = json.decode(jsonStr);
-    return MyClass.fromJson(jsonData);
+
+    return decodeJson(jsonStr, type);
   }
 
 // not able to use the next methods. Need to ask ChatGPT !
@@ -156,7 +157,10 @@ class JsonDataService {
     return '';
   }
 
-  static dynamic decodeJson(String jsonString, Type type) {
+  static dynamic decodeJson(
+    String jsonString,
+    Type type,
+  ) {
     final fromJsonFunction = _fromJsonFunctionsMap[type];
     if (fromJsonFunction != null) {
       final jsonData = jsonDecode(jsonString);
@@ -257,7 +261,10 @@ void main() {
   );
 
   // Load myClassInstance from the JSON file
-  MyClass loadedObj = JsonDataService.loadFromFile(path: 'myobj.json');
+  MyClass loadedObj = JsonDataService.loadFromFile(
+    path: 'myobj.json',
+    type: MyClass,
+  );
 
   // Print the loaded object
   print(loadedObj.name); // Output: My object
@@ -302,7 +309,7 @@ void main() {
   MyClass myClassDecodedInstance =
       JsonDataService.decodeJson(myClassJsonStr, MyClass);
   print('myClassDecodedInstance: $myClassDecodedInstance');
- 
+
   try {
     var myClassDecodedInstance =
         JsonDataService.decodeJsonList(myClassJsonStr, MyClass);
