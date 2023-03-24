@@ -104,7 +104,7 @@ class Audio {
       videoUrl: json['videoUrl'],
       audioDownloadDate: DateTime.parse(json['audioDownloadDate']),
       videoUploadDate: DateTime.parse(json['videoUploadDate']),
-      audioDuration: Duration(milliseconds: json['audioDuration']),
+      audioDuration: Duration(milliseconds: json['audioDuration'] ?? 0),
       fileName: json['fileName'],
     );
   }
