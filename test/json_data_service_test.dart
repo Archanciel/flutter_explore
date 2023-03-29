@@ -128,7 +128,7 @@ void main() {
       }
     });
   });
-  group('JsonDataService', () {
+  group('JsonDataService list', () {
     test('saveListToFile() ClassNotSupportedByToJsonDataServiceException',
         () async {
       // Prepare test data
