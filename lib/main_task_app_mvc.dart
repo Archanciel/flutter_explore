@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// task_model.dart
-
 class Task {
   String title;
   bool isDone;
@@ -13,7 +11,7 @@ class Task {
   }
 }
 
-class TaskList {
+class TaskController {
   List<Task> _tasks = [];
 
   List<Task> get tasks => _tasks;
@@ -26,38 +24,14 @@ class TaskList {
     _tasks.removeAt(index);
   }
 
-  void toggleTask(int index) {
+  void toggleTaskCompletion(int index) {
     _tasks[index].toggleDone();
   }
 }
 
-// task_controller.dart
 
-// import 'task_model.dart';
 
-class TaskController {
-  final TaskList _taskList = TaskList();
 
-  List<Task> get tasks => _taskList.tasks;
-
-  void addTask(String title) {
-    _taskList.addTask(title);
-  }
-
-  void deleteTask(int index) {
-    _taskList.deleteTask(index);
-  }
-
-  void toggleTask(int index) {
-    _taskList.toggleTask(index);
-  }
-}
-
-// main.dart
-
-// import 'package:flutter/material.dart';
-// import 'task_controller.dart';
-// import task_list_view.dart
 
 void main() {
   runApp(MyApp());
@@ -72,39 +46,31 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// task_list_view.dart
-
-// import 'package:flutter/material.dart';
-// import 'task_view_model.dart';
-// import task_controller.dart
-
 class TaskListView extends StatefulWidget {
   @override
   _TaskListViewState createState() => _TaskListViewState();
 }
 
 class _TaskListViewState extends State<TaskListView> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _taskTextController = TextEditingController();
   final TaskController _taskController = TaskController();
-
-  void _addTask() {
-    setState(() {
-      _taskController.addTask(_controller.text);
-    });
-    _controller.clear();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Task List')),
+      appBar: AppBar(title: const Text('Task List')),
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
-              controller: _controller,
-              onSubmitted: (value) => _addTask(),
+              controller: _taskTextController,
+              onSubmitted: (value) => () {
+                setState(() {
+                  _taskController.addTask(_taskTextController.text);
+                });
+                _taskTextController.clear();
+              }(),
             ),
           ),
           Expanded(
@@ -116,11 +82,12 @@ class _TaskListViewState extends State<TaskListView> {
                   title: Text(
                     task.title,
                     style: TextStyle(
-                      decoration: task.isDone ? TextDecoration.lineThrough : null,
+                      decoration:
+                          task.isDone ? TextDecoration.lineThrough : null,
                     ),
                   ),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       setState(() {
                         _taskController.deleteTask(index);
@@ -129,7 +96,7 @@ class _TaskListViewState extends State<TaskListView> {
                   ),
                   onTap: () {
                     setState(() {
-                      _taskController.toggleTask(index);
+                      _taskController.toggleTaskCompletion(index);
                     });
                   },
                 );
@@ -139,8 +106,13 @@ class _TaskListViewState extends State<TaskListView> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addTask,
-        child: Icon(Icons.add),
+        onPressed: () {
+          setState(() {
+            _taskController.addTask(_taskTextController.text);
+          });
+          _taskTextController.clear();
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
