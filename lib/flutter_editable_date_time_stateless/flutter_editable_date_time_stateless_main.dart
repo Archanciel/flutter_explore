@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print('MyApp.build()');
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FlutterEditableDateTimeScreen(),
     );
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 }
 
 class FlutterEditableDateTimeScreen extends StatefulWidget {
-  FlutterEditableDateTimeScreen({Key? key}) : super(key: key);
+  const FlutterEditableDateTimeScreen({Key? key}) : super(key: key);
 
   @override
   State<FlutterEditableDateTimeScreen> createState() =>
@@ -63,7 +63,7 @@ class _FlutterEditableDateTimeScreenState
       ),
       body: Container(
         color: Colors.blue,
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
             horizontal: 15,
             vertical: 0.0),
         child: Stack(

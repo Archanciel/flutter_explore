@@ -30,11 +30,11 @@ class MyStatelessWidget extends StatelessWidget {
       onPressed: () {
         // set up the buttons
         Widget cancelButton = TextButton(
-          child: Text("Cancel"),
+          child: const Text("Cancel"),
           onPressed: () => Navigator.pop(context, 'Cancel'),
         );
         Widget continueButton = TextButton(
-          child: Text("Ok"),
+          child: const Text("Ok"),
           onPressed: () => Navigator.pop(context, 'Ok'),
         );
         showDialog<String>(

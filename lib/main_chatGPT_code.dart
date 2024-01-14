@@ -70,14 +70,16 @@ class MyMenuItem extends StatelessWidget {
 
 // Use custom appbar and menu item
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(height: 80.0),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             MyMenuItem(title: 'Home', color: Colors.blue),
             MyMenuItem(title: 'About', color: Colors.green),
             MyMenuItem(title: 'Settings', color: Colors.red),
@@ -89,5 +91,5 @@ class MyHomePage extends StatelessWidget {
 }
 
 void main() {
-  runApp(MyHomePage());
+  runApp(const MyHomePage());
 }

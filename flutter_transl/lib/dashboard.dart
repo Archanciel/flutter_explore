@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/dashboard_page1.dart';
@@ -20,9 +19,9 @@ class _DashboardState extends State<Dashboard> {
   int _currentIndex = 0;
 
   final List<Widget> _children = [
-    DashboardPage1(),
-    DashboardPage2(),
-    DashboardPage3()
+    const DashboardPage1(),
+    const DashboardPage2(),
+    const DashboardPage3()
   ];
 
   @override

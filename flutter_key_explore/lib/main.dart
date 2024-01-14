@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_key_explore/page/advanced_key_page.dart';
 import 'package:flutter_key_explore/page/basic_key_page.dart';
-import 'package:flutter_key_explore/utils.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,22 +10,26 @@ Future main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static final String title = 'Value Key';
+  static const String title = 'Value Key';
+
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: title,
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: MainPage(),
+        home: const MainPage(),
       );
 }
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -41,14 +44,14 @@ class _MainPageState extends State<MainPage> {
       );
 
   Widget buildBottomBar() {
-    final style = TextStyle(color: Colors.white);
+    const style = TextStyle(color: Colors.white);
 
     return BottomNavigationBar(
       backgroundColor: Theme.of(context).primaryColor,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white70,
       currentIndex: index,
-      items: [
+      items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.beach_access),
           label: 'Basics',
@@ -65,9 +68,9 @@ class _MainPageState extends State<MainPage> {
   Widget buildPages() {
     switch (index) {
       case 0:
-        return BasicKeyPage();
+        return const BasicKeyPage();
       case 1:
-        return AdvancedKeyPage();
+        return const AdvancedKeyPage();
       default:
         return Container();
     }

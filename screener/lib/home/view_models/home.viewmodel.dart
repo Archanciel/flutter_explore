@@ -25,7 +25,7 @@ class HomeViewModel extends LoadingViewModel {
 
       _homeModel = await repo.fetchData();
     } catch (exc) {
-      debugPrint('Error in _fetchData : ${exc.toString()}');
+      debugPrint('Error in _fetchData : $exc');
     }
 
     isLoading = false;

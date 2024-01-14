@@ -13,25 +13,27 @@ Future main() async {
 
   await TextPreferences.init();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static final String title = 'Detect Background & App Closed';
+  static const String title = 'Detect Background & App Closed';
+
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: title,
         theme: ThemeData(primarySwatch: Colors.indigo),
-        home: MainPage(title: title),
+        home: const MainPage(title: title),
       );
 }
 
 class MainPage extends StatefulWidget {
   final String title;
 
-  const MainPage({
+  const MainPage({super.key, 
     required this.title,
   });
 
@@ -86,19 +88,19 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
 
   Widget buildTextField() => TextField(
         controller: _controller,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: 'Text',
           hintText: 'Enter Text',
-          labelStyle: TextStyle(color: Colors.white),
-          hintStyle: TextStyle(color: Colors.white),
+          labelStyle: const TextStyle(color: Colors.white),
+          hintStyle: const TextStyle(color: Colors.white),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.white),
+            borderSide: const BorderSide(color: Colors.white),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.white),
+            borderSide: const BorderSide(color: Colors.white),
           ),
         ),
       );

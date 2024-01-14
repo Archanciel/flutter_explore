@@ -5,10 +5,9 @@ import 'package:screener/fringilla/components/card/card.component.dart';
 import 'package:screener/fringilla/components/webview/webview.component.dart';
 import 'package:screener/fringilla/utils/strings.dart';
 import 'package:screener/fringilla/view_models/fringilla.viewmodel.dart';
+import 'package:screener/locator.dart';
 import 'package:screener/shared/services/navigation.service.dart';
 import 'package:shared_components/shared_components.dart';
-
-import '../../locator.dart';
 
 class FringillaView extends StatefulWidget {
   const FringillaView({Key? key}) : super(key: key);
@@ -25,7 +24,7 @@ class _FringillaViewState extends State<FringillaView> {
     super.initState();
     viewModel = Provider.of<FringillaViewModel>(context, listen: false);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       viewModel.fetchData();
     });
   }
@@ -51,7 +50,7 @@ class _FringillaViewState extends State<FringillaView> {
                 const SpacerVertical(20),
                 Text(
                   FringillaStrings.subtitle,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SpacerVertical(40),
                 const _Items(),
@@ -89,7 +88,7 @@ class _Items extends StatelessWidget {
             onPressed: () {
               navService.nav.push(MaterialPageRoute(
                 builder: (_) => WebViewComponent(url: model.items[i].urlLink!),
-              ));
+              ),);
             },
             text: model.items[i].description!,
           ),

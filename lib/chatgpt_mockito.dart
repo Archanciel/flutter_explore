@@ -1,6 +1,6 @@
-
-
 // ignore_for_file: avoid_print
+
+import 'package:flutter/foundation.dart';
 
 class MyClass {
   final double _d;
@@ -25,27 +25,27 @@ class MySubClass extends MyClass {
   }
 }
 
-// class MyViewModel extends ChangeNotifier {
-//   late MyClass _myClass;
+class MyViewModel extends ChangeNotifier {
+  late MyClass _myClass;
 
-//   MyClass get myClass => _myClass;
+  MyClass get myClass => _myClass;
 
-//   void execute() {
-//     double d = _complexButFastMethod();
+  void execute() {
+    double d = _complexButFastMethod();
 
-//     _verySlowMethod(d);
-//     notifyListeners();
-//   }
+    verySlowMethod(d);
+    notifyListeners();
+  }
 
-//   double _complexButFastMethod() {
-//     return 0.1;
-//   }
+  double _complexButFastMethod() {
+    return 0.1;
+  }
 
-//   // method to be implemented by mockito class
-//   void _verySlowMethod(double d) {
-//     _myClass = MyClass(d);
-//   }
-// }
+  // method to be implemented by mockito class
+  void verySlowMethod(double d) {
+    _myClass = MyClass(d);
+  }
+}
 
 void main(List<String> args) {
   MySubClass sub = MySubClass(5.7);

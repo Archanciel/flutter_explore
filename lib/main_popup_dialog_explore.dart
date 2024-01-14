@@ -8,11 +8,13 @@ Future main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static final String title = 'Warning Dialog';
+  static const String title = 'Warning Dialog';
+
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -20,25 +22,27 @@ class MyApp extends StatelessWidget {
         title: title,
         theme: ThemeData(
           primarySwatch: Colors.blue,
-          textTheme: TextTheme(
-            bodyText2: TextStyle(fontSize: 32),
+          textTheme: const TextTheme(
+            bodyMedium: TextStyle(fontSize: 32),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-              minimumSize: Size.fromHeight(52),
-              textStyle: TextStyle(fontSize: 24),
+              minimumSize: const Size.fromHeight(52),
+              textStyle: const TextStyle(fontSize: 24),
             ),
           ),
-          snackBarTheme: SnackBarThemeData(
+          snackBarTheme: const SnackBarThemeData(
             backgroundColor: Colors.green,
             contentTextStyle: TextStyle(fontSize: 24),
           ),
         ),
-        home: MainPage(),
+        home: const MainPage(),
       );
 }
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -47,16 +51,16 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(MyApp.title),
+          title: const Text(MyApp.title),
           centerTitle: true,
         ),
         body: Container(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Column(
             children: [
               const SizedBox(height: 16),
               ElevatedButton(
-                child: Text('Open Dialog'),
+                child: const Text('Open Dialog'),
                 onPressed: () {
                   openWarningDialog(context,
                       'You entered an incorrectly formated time. Please retry !');

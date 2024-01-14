@@ -43,7 +43,7 @@ void main() {
         videoUrl: 'https://www.youtube.com/watch?v=testVideoID',
         audioDownloadDate: DateTime(2023, 3, 24),
         videoUploadDate: DateTime(2023, 3, 1),
-        audioDuration: Duration(minutes: 5, seconds: 30),
+        audioDuration: const Duration(minutes: 5, seconds: 30),
       );
 
       // Save the Audio instance to a file
@@ -100,7 +100,7 @@ void main() {
           originalAudio.audioDownloadDate.toIso8601String());
       expect(deserializedAudio.videoUploadDate.toIso8601String(),
           originalAudio.videoUploadDate.toIso8601String());
-      expect(deserializedAudio.audioDuration, Duration(milliseconds: 0));
+      expect(deserializedAudio.audioDuration, const Duration(milliseconds: 0));
       expect(deserializedAudio.fileName, originalAudio.fileName);
 
       // Cleanup the temporary directory
@@ -123,7 +123,7 @@ void main() {
         originalVideoTitle: 'Test Video 1',
         videoUrl: 'https://www.example.com/video-url-1',
         audioDownloadDate: DateTime.now(),
-        videoUploadDate: DateTime.now().subtract(Duration(days: 10)),
+        videoUploadDate: DateTime.now().subtract(const Duration(days: 10)),
       );
 
       Audio audio2 = Audio(
@@ -131,8 +131,8 @@ void main() {
         originalVideoTitle: 'Test Video 2',
         videoUrl: 'https://www.example.com/video-url-2',
         audioDownloadDate: DateTime.now(),
-        videoUploadDate: DateTime.now().subtract(Duration(days: 5)),
-        audioDuration: Duration(minutes: 5, seconds: 30),
+        videoUploadDate: DateTime.now().subtract(const Duration(days: 5)),
+        audioDuration: const Duration(minutes: 5, seconds: 30),
       );
 
       testPlaylist.addDownloadedAudio(audio1);
@@ -164,7 +164,7 @@ void main() {
         expect(loadedAudio.videoUploadDate, originalAudio.videoUploadDate);
         expect(loadedAudio.fileName, originalAudio.fileName);
         if (i == 1) {
-          expect(loadedAudio.audioDuration, Duration(minutes: 5, seconds: 30));
+          expect(loadedAudio.audioDuration, const Duration(minutes: 5, seconds: 30));
         }
       }
 
@@ -221,7 +221,7 @@ void main() {
         videoUrl: 'https://www.youtube.com/watch?v=testVideoID',
         audioDownloadDate: DateTime(2023, 3, 24),
         videoUploadDate: DateTime(2023, 3, 1),
-        audioDuration: Duration(minutes: 5, seconds: 30),
+        audioDuration: const Duration(minutes: 5, seconds: 30),
       );
 
       // Save the Audio instance to a file
@@ -246,7 +246,7 @@ void main() {
         videoUrl: 'https://www.youtube.com/watch?v=testVideoID',
         audioDownloadDate: DateTime(2023, 3, 24),
         videoUploadDate: DateTime(2023, 3, 1),
-        audioDuration: Duration(minutes: 5, seconds: 30),
+        audioDuration: const Duration(minutes: 5, seconds: 30),
       );
 
       Audio audioTwo = Audio(
@@ -255,7 +255,7 @@ void main() {
         videoUrl: 'https://www.youtube.com/watch?v=testVideoID',
         audioDownloadDate: DateTime(2023, 3, 24),
         videoUploadDate: DateTime(2023, 3, 1),
-        audioDuration: Duration(minutes: 5, seconds: 30),
+        audioDuration: const Duration(minutes: 5, seconds: 30),
       );
 
       // Prepare test data
@@ -266,7 +266,7 @@ void main() {
 
       // Load the list from the file
       List<Audio> loadedList =
-          await JsonDataService.loadListFromFile(path: jsonPath, type: Audio);
+          JsonDataService.loadListFromFile(path: jsonPath, type: Audio);
 
       // Check if the loaded list matches the original list
       expect(loadedList.length, testList.length);
@@ -293,7 +293,7 @@ void main() {
         originalVideoTitle: 'Test Video 1',
         videoUrl: 'https://www.example.com/video-url-1',
         audioDownloadDate: DateTime.now(),
-        videoUploadDate: DateTime.now().subtract(Duration(days: 10)),
+        videoUploadDate: DateTime.now().subtract(const Duration(days: 10)),
       );
 
       Audio audio2 = Audio(
@@ -301,8 +301,8 @@ void main() {
         originalVideoTitle: 'Test Video 2',
         videoUrl: 'https://www.example.com/video-url-2',
         audioDownloadDate: DateTime.now(),
-        videoUploadDate: DateTime.now().subtract(Duration(days: 5)),
-        audioDuration: Duration(minutes: 5, seconds: 30),
+        videoUploadDate: DateTime.now().subtract(const Duration(days: 5)),
+        audioDuration: const Duration(minutes: 5, seconds: 30),
       );
 
       testPlaylistOne.addDownloadedAudio(audio1);
@@ -326,7 +326,7 @@ void main() {
 
       // Load the list from the file
       List<Playlist> loadedList =
-          await JsonDataService.loadListFromFile(path: jsonPath, type: Playlist);
+          JsonDataService.loadListFromFile(path: jsonPath, type: Playlist);
 
       // Check if the loaded list matches the original list
       expect(loadedList.length, testList.length);

@@ -21,10 +21,12 @@ List<ItemVO> sampleKidsList = [
 ];
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,12 +35,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: TestScreen(),
+      home: const TestScreen(),
     );
   }
 }
 
 class TestScreen extends StatefulWidget {
+  const TestScreen({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _TestScreen();
@@ -64,7 +68,7 @@ class _TestScreen extends State<TestScreen> {
             itemCount: mainList.length,
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 20),
+            margin: const EdgeInsets.only(bottom: 20),
             alignment: Alignment.bottomCenter,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -77,7 +81,7 @@ class _TestScreen extends State<TestScreen> {
                     });
                   },
                   heroTag: "btn1",
-                  child: Text("Mens"),
+                  child: const Text("Mens"),
                 ),
                 FloatingActionButton(
                   onPressed: () {
@@ -87,7 +91,7 @@ class _TestScreen extends State<TestScreen> {
                     });
                   },
                   heroTag: "btn2",
-                  child: Text("Women"),
+                  child: const Text("Women"),
                 ),
                 FloatingActionButton(
                   onPressed: () {
@@ -97,7 +101,7 @@ class _TestScreen extends State<TestScreen> {
                     });
                   },
                   heroTag: "btn3",
-                  child: Text("Kids"),
+                  child: const Text("Kids"),
                 )
               ],
             ),
@@ -121,17 +125,17 @@ class _TestScreen extends State<TestScreen> {
           children: <Widget>[
             Text(
               "ID:: "+model._id,
-              style: TextStyle(fontSize: 18, color: Colors.black),
+              style: const TextStyle(fontSize: 18, color: Colors.black),
             ),
-            Padding(padding: EdgeInsets.only(left: 5,right: 5)),
+            const Padding(padding: EdgeInsets.only(left: 5,right: 5)),
             Text(
               "Name:: "+model._name,
-              style: TextStyle(fontSize: 18, color: Colors.black),
+              style: const TextStyle(fontSize: 18, color: Colors.black),
             )
           ],
         ),
       ),
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
     );
   }
 }

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter DateTimePicker Demo',
       home: MyHomePage(),
       localizationsDelegates: [
@@ -22,14 +24,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  GlobalKey<FormState> _oFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _oFormKey = GlobalKey<FormState>();
   late TextEditingController _controller1;
   late TextEditingController _controller2;
   late TextEditingController _controller3;
@@ -57,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     final DateTime dateTimeNow = DateTime.now();
     String _initialValue = dateTimeNow.toString();
-    final String localName = 'fr_CH';
+    const String localName = 'fr_CH';
     Intl.defaultLocale = localName;
     _dateTimeFormat = DateFormat("dd-MM-yyyy HH:mm");
     _dateOnlyFormat = DateFormat("dd-MM-yyyy");
@@ -75,10 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter DateTimePicker Demo'),
+        title: const Text('Flutter DateTimePicker Demo'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
         child: Form(
           key: _oFormKey,
           child: Column(
@@ -90,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _controller1,
                 firstDate: DateTime(2000),
                 lastDate: DateTime(2100),
-                icon: Icon(Icons.event),
+                icon: const Icon(Icons.event),
                 dateLabelText: 'Date',
                 timeLabelText: "Hour",
                 selectableDayPredicate: (date) {
@@ -111,8 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Wrap(
                 children: [
-                  Text('Wake up at'),
-                  SizedBox(
+                  const Text('Wake up at'),
+                  const SizedBox(
                     width: 10,
                   ),
                   DateTimePicker(
@@ -122,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     controller: _controller2,
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2100),
-                    icon: Icon(Icons.event),
+                    icon: const Icon(Icons.event),
                     //dateLabelText: 'Date Time',
                     onChanged: (val) => setState(() => _valueChanged2 = val),
                     validator: (val) {
@@ -142,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _controller3,
                 firstDate: DateTime(2000),
                 lastDate: DateTime(2100),
-                icon: Icon(Icons.event),
+                icon: const Icon(Icons.event),
                 dateLabelText: 'Date',
                 onChanged: (val) => setState(() => _valueChanged3 = val),
                 validator: (val) {
@@ -155,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 type: DateTimePickerType.time,
                 timePickerEntryModeInput: true,
                 controller: _controller4,
-                icon: Icon(Icons.access_time),
+                icon: const Icon(Icons.access_time),
                 timeLabelText: "Time",
                 use24HourFormat: true,
                 onChanged: (val) => setState(() => _valueChanged4 = val),
@@ -165,12 +167,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 onSaved: (val) => setState(() => _valueSaved4 = val ?? ''),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'DateTimePicker data value onChanged:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               SelectableText(_reformatDateTimeStr(_valueChanged1)),
               SelectableText(_reformatDateTimeStr(_valueChanged2)),
               SelectableText(_reformatDateStr(_valueChanged3)),
@@ -184,24 +186,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     loForm?.save();
                   }
                 },
-                child: Text('Submit'),
+                child: const Text('Submit'),
               ),
-              SizedBox(height: 30),
-              Text(
+              const SizedBox(height: 30),
+              const Text(
                 'DateTimePicker data value validator:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               SelectableText(_reformatDateTimeStr(_valueToValidate1)),
               SelectableText(_reformatDateTimeStr(_valueToValidate2)),
               SelectableText(_reformatDateStr(_valueToValidate3)),
               SelectableText(_valueToValidate4),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'DateTimePicker data value onSaved:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               SelectableText(_reformatDateTimeStr(_valueSaved1)),
               SelectableText(_reformatDateTimeStr(_valueSaved2)),
               SelectableText(_reformatDateStr(_valueSaved3)),
@@ -232,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   _controller3.clear();
                   _controller4.clear();
                 },
-                child: Text('Reset'),
+                child: const Text('Reset'),
               ),
             ],
           ),

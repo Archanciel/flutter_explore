@@ -103,9 +103,9 @@ typedef FromJsonFunction<T> = T Function(Map<String, dynamic> jsonDataMap);
 typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
 
 class ClassNotContainedInJsonFileException implements Exception {
-  String _className;
-  String _jsonFilePathName;
-  StackTrace _stackTrace;
+  final String _className;
+  final String _jsonFilePathName;
+  final StackTrace _stackTrace;
 
   ClassNotContainedInJsonFileException({
     required String className,
@@ -122,8 +122,8 @@ class ClassNotContainedInJsonFileException implements Exception {
 }
 
 class ClassNotSupportedByToJsonDataServiceException implements Exception {
-  String _className;
-  StackTrace _stackTrace;
+  final String _className;
+  final StackTrace _stackTrace;
 
   ClassNotSupportedByToJsonDataServiceException({
     required String className,
@@ -138,8 +138,8 @@ class ClassNotSupportedByToJsonDataServiceException implements Exception {
 }
 
 class ClassNotSupportedByFromJsonDataServiceException implements Exception {
-  String _className;
-  StackTrace _stackTrace;
+  final String _className;
+  final StackTrace _stackTrace;
 
   ClassNotSupportedByFromJsonDataServiceException({
     required String className,
@@ -301,7 +301,7 @@ class JsonDataService {
     required String jsonStr,
   }) {
     String prettyJson =
-        JsonEncoder.withIndent('  ').convert(json.decode(jsonStr));
+        const JsonEncoder.withIndent('  ').convert(json.decode(jsonStr));
     print('$methodName:\n$prettyJson');
   }
 }

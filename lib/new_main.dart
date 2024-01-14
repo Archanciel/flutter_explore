@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CompoundInterestCalculator extends StatefulWidget {
+  const CompoundInterestCalculator({super.key});
+
   @override
   _CompoundInterestCalculatorState createState() =>
       _CompoundInterestCalculatorState();
@@ -21,14 +23,14 @@ class _CompoundInterestCalculatorState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calculateur d\'intérêts composés'),
+        title: const Text('Calculateur d\'intérêts composés'),
       ),
       body: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
             TextFormField(
-              decoration: InputDecoration(labelText: 'Principal'),
+              decoration: const InputDecoration(labelText: 'Principal'),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value!.isEmpty) {
@@ -39,7 +41,7 @@ class _CompoundInterestCalculatorState
               onSaved: (value) => _principal = double.parse(value!),
             ),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Taux'),
+              decoration: const InputDecoration(labelText: 'Taux'),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value!.isEmpty) {
@@ -50,7 +52,7 @@ class _CompoundInterestCalculatorState
               onSaved: (value) => _rate = double.parse(value!) / 100,
             ),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Durée (en années)'),
+              decoration: const InputDecoration(labelText: 'Durée (en années)'),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value!.isEmpty) {
@@ -70,7 +72,7 @@ class _CompoundInterestCalculatorState
                   });
                 }
               },
-              child: Text('Calculer'),
+              child: const Text('Calculer'),
             ),
             Text('Montant final : $_result'),
           ],
@@ -81,7 +83,7 @@ class _CompoundInterestCalculatorState
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: CompoundInterestCalculator(),
   ));
 }

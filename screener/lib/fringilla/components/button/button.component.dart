@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:app_theme/app_theme.dart' show AppColors;
+import 'package:flutter/material.dart';
 
 typedef ButtonPressed = void Function();
 
@@ -23,7 +22,7 @@ class ButtonComponent extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           side: BorderSide(color: AppColors.buttonOutline),
         ),
-        child: Text(text, style: Theme.of(context).textTheme.button),
+        child: Text(text, style: Theme.of(context).textTheme.labelLarge),
       ),
     );
   }

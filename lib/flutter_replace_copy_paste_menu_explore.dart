@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     _textfieldFocusNode,
                   );
                   _controller.selection =
-                      TextSelection(baseOffset: 0, extentOffset: 0);
+                      const TextSelection(baseOffset: 0, extentOffset: 0);
                   // setState(() {
                   // });
                 },

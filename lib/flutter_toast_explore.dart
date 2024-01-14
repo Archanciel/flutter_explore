@@ -5,9 +5,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,14 +18,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(
-          key: const Key('homePage'), title: 'Flutter Show Text Tag demo'),
+      home: const MyHomePage(
+          key: Key('homePage'), title: 'Flutter Show Text Tag demo'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({required Key key, required this.title}) : super(key: key);
+  const MyHomePage({required Key key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -32,11 +34,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  GlobalKey _textFieldKey = GlobalKey();
-  TextStyle _textFieldStyle = TextStyle(fontSize: 20);
+  final GlobalKey _textFieldKey = GlobalKey();
+  final TextStyle _textFieldStyle = const TextStyle(fontSize: 20);
 
-  FocusNode _focusNode = FocusNode();
-  TextEditingController _textFieldController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+  final TextEditingController _textFieldController = TextEditingController();
   late FToast fToast;
 
   @override

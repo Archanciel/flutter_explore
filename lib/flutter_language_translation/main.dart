@@ -8,10 +8,12 @@ import 'screens/home.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             appBarTheme: const AppBarTheme(color: Color(0xFF000000)),
           ),
-          home: Home(),
+          home: const Home(),
         ),
       ),
     );

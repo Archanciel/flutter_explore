@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,12 +17,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: XylophoneApp(),
+      home: const XylophoneApp(),
     );
   }
 }
 
 class XylophoneApp extends StatefulWidget {
+  const XylophoneApp({super.key});
+
   @override
   State<XylophoneApp> createState() => _XylophoneAppState();
 }

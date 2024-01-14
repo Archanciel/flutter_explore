@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:shared_components/shared_components.dart';
-
+import 'package:screener/pellen/components/row_with_number/numbered_row.component.dart';
 import 'package:screener/pellen/utils/strings.dart';
 import 'package:screener/pellen/view_models/pellen.viewmodel.dart';
-
-import '../components/row_with_number/numbered_row.component.dart';
+import 'package:shared_components/shared_components.dart';
 
 class PellenView extends StatelessWidget {
   const PellenView({Key? key}) : super(key: key);
@@ -26,7 +23,7 @@ class PellenView extends StatelessWidget {
             const SpacerVertical(20),
             Text(
               PellenStrings.subtitle,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SpacerVertical(28),
             const _SectionOne(),

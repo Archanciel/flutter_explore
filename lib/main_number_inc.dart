@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,75 +25,75 @@ class MyApp extends StatelessWidget {
         child: Scaffold(
           body: Center(
             child: ListView(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Default appearance'),
-                Example1(key: Key('')),
-                Text('Setting minimum value -2 and maximum value 3'),
-                Example2(key: Key('')),
-                Divider(key: Key('')),
-                Text('Using double values with incDecFactor=0.35'),
-                Example3(key: Key('')),
-                Text('Prefabbed widget: Squared Blue Buttons'),
+                const Text('Default appearance'),
+                const Example1(key: Key('')),
+                const Text('Setting minimum value -2 and maximum value 3'),
+                const Example2(key: Key('')),
+                const Divider(key: Key('')),
+                const Text('Using double values with incDecFactor=0.35'),
+                const Example3(key: Key('')),
+                const Text('Prefabbed widget: Squared Blue Buttons'),
                 NumberInputPrefabbed.squaredButtons(
                   controller: TextEditingController(),
                   incDecBgColor: Colors.blue,
                 ),
-                Text('PrefabbKed widget: Leafy Icons'),
+                const Text('PrefabbKed widget: Leafy Icons'),
                 NumberInputPrefabbed.leafyButtons(
                   controller: TextEditingController(),
                 ),
-                Text('Prefabbed widget: Directional Icons'),
+                const Text('Prefabbed widget: Directional Icons'),
                 NumberInputPrefabbed.directionalButtons(
                   controller: TextEditingController(),
                 ),
-                Text('Prefabbed widget: RoundEdged Icons'),
+                const Text('Prefabbed widget: RoundEdged Icons'),
                 NumberInputPrefabbed.roundedEdgeButtons(
                   controller: TextEditingController(),
                 ),
-                Text('Prefabbed widget: Squared Green Icons'),
+                const Text('Prefabbed widget: Squared Green Icons'),
                 NumberInputPrefabbed.squaredButtons(
                   controller: TextEditingController(),
                   incDecBgColor: Colors.green,
                 ),
-                Text('Both buttons positioned at right side'),
+                const Text('Both buttons positioned at right side'),
                 NumberInputPrefabbed.roundedButtons(
                   controller: TextEditingController(),
                   incDecBgColor: Colors.amber,
                   buttonArrangement: ButtonArrangement.rightEnd,
                 ),
-                Text('Both buttons positioned at left side'),
+                const Text('Both buttons positioned at left side'),
                 NumberInputPrefabbed.roundedButtons(
                   controller: TextEditingController(),
                   incDecBgColor: Colors.amber,
                   buttonArrangement: ButtonArrangement.leftEnd,
                 ),
-                Text('Increment left Decrement right'),
+                const Text('Increment left Decrement right'),
                 NumberInputPrefabbed.roundedButtons(
                   controller: TextEditingController(),
                   incDecBgColor: Colors.blueAccent,
                   buttonArrangement: ButtonArrangement.incLeftDecRight,
                 ),
-                Text('Increment right Decrement left'),
+                const Text('Increment right Decrement left'),
                 NumberInputPrefabbed.roundedButtons(
                   controller: TextEditingController(),
                   incDecBgColor: Colors.blueAccent,
                   buttonArrangement: ButtonArrangement.incRightDecLeft,
                 ),
-                Text('With initial Value as 5'),
-                Example4(key: Key('')),
-                Text('Different border decoration'),
-                Example5(key: Key('')),
-                Text('Different icons & form field decoration'),
-                Example6(key: Key('')),
-                Text('Height scaled to 0.75'),
-                Example7(key: Key('')),
-                Text('Width scaled to 0.75'),
-                Example8(key: Key('')),
-                Text('Customized Icon shape and size.'),
-                Example9(key: Key('')),
-                Text('Passing callbacks onIncrment and onDecrement'),
+                const Text('With initial Value as 5'),
+                const Example4(key: Key('')),
+                const Text('Different border decoration'),
+                const Example5(key: Key('')),
+                const Text('Different icons & form field decoration'),
+                const Example6(key: Key('')),
+                const Text('Height scaled to 0.75'),
+                const Example7(key: Key('')),
+                const Text('Width scaled to 0.75'),
+                const Example8(key: Key('')),
+                const Text('Customized Icon shape and size.'),
+                const Example9(key: Key('')),
+                const Text('Passing callbacks onIncrment and onDecrement'),
                 NumberInputWithIncrementDecrement(
                   controller: TextEditingController(),
                   onIncrement: (num newlyIncrementedValue) {
@@ -102,15 +104,15 @@ class MyApp extends StatelessWidget {
                         'Newly decremented value is $newlyDecrementedValue');
                   },
                 ),
-                Text('Disable the field.'),
+                const Text('Disable the field.'),
                 NumberInputWithIncrementDecrement(
                   controller: TextEditingController(),
                   enabled: false,
                 ),
-                Text('Change style of editable text.'),
+                const Text('Change style of editable text.'),
                 NumberInputWithIncrementDecrement(
                   controller: TextEditingController(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.green,
                     fontSize: 32,
                   ),
@@ -135,11 +137,11 @@ class Example9 extends StatelessWidget {
       decIconColor: Colors.teal,
       incIconColor: Colors.teal,
       controller: TextEditingController(),
-      numberFieldDecoration: InputDecoration(
+      numberFieldDecoration: const InputDecoration(
         border: InputBorder.none,
       ),
       widgetContainerDecoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(10)
         ),
         border: Border.all(
@@ -147,14 +149,14 @@ class Example9 extends StatelessWidget {
           width: 2,
         )
       ),
-      incIconDecoration: BoxDecoration(
+      incIconDecoration: const BoxDecoration(
         color: Colors.amber,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(10),
         ),
       ),
       separateIcons: true,
-      decIconDecoration: BoxDecoration(
+      decIconDecoration: const BoxDecoration(
         color: Colors.amber,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(10),
@@ -212,7 +214,7 @@ class Example6 extends StatelessWidget {
       numberFieldDecoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
-          borderSide: BorderSide(color: Colors.orange, width: 2.0),
+          borderSide: const BorderSide(color: Colors.orange, width: 2.0),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_mvvm_simple_app/fringilla/utils/strings.dart';
@@ -45,7 +44,7 @@ class ThirdScreenRobot {
   }
 
   Future<void> clickTile(int item) async {
-    assert(item != null && item >= 0 && item <= 5);
+    assert(item >= 0 && item <= 5);
     final key = 'fringilla_item_${item.toString()}';
 
     final itemFinder = find.byKey(Key(key));

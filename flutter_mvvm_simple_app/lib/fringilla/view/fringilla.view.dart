@@ -25,7 +25,7 @@ class _FringillaViewState extends State<FringillaView> {
     super.initState();
     viewModel = Provider.of<FringillaViewModel>(context, listen: false);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       viewModel.fetchData();
     });
   }
@@ -51,7 +51,7 @@ class _FringillaViewState extends State<FringillaView> {
                 const SpacerVertical(20),
                 Text(
                   FringillaStrings.subtitle,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SpacerVertical(40),
                 const _Items(),

@@ -23,7 +23,7 @@ class NumberedRowComponent extends CaptionTextComponent {
           '$number.',
           style: Theme.of(context)
               .textTheme
-              .caption!
+              .bodySmall!
               .copyWith(color: AppColors.textGrey),
         ),
         const SpacerHorizontal(12),

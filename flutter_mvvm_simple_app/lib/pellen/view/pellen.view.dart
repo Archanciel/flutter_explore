@@ -26,7 +26,7 @@ class PellenView extends StatelessWidget {
             const SpacerVertical(20),
             Text(
               PellenStrings.subtitle,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SpacerVertical(28),
             const _SectionOne(),

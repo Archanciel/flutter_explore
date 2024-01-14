@@ -13,7 +13,7 @@ class Task {
 }
 
 class TaskListViewModel extends ChangeNotifier {
-  List<Task> _tasks = [];
+  final List<Task> _tasks = [];
 
   List<Task> get tasks => _tasks;
 
@@ -37,12 +37,14 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => TaskListViewModel(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,6 +55,8 @@ class MyApp extends StatelessWidget {
 
 class TaskListView extends StatelessWidget {
   final TextEditingController _taskTextController = TextEditingController();
+
+  TaskListView({super.key});
 
   @override
   Widget build(BuildContext context) {

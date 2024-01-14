@@ -33,12 +33,14 @@ Future<void> main() async {
           create: (_) => FringillaViewModel(repo: locator<FringillaRepo>()),
         ),
       ],
-      child: MainApp(),
+      child: const MainApp(),
     ),
   );
 }
 
 class MainApp extends StatefulWidget {
+  const MainApp({super.key});
+
   @override
   _MainAppState createState() => _MainAppState();
 }

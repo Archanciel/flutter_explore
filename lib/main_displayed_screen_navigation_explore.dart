@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -13,12 +15,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/second':
             return PageTransition(
-              child: SecondPage(),
+              child: const SecondPage(),
               type: PageTransitionType.scale,
               settings: settings,
             );
@@ -32,12 +34,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: Text('Page Transition'),
+        title: const Text('Page Transition'),
       ),
       body: Center(
         child: Column(
@@ -45,43 +49,43 @@ class MyHomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              child: Text('Fade Second Page'),
+              child: const Text('Fade Second Page'),
               onPressed: () {
                 Navigator.push(
                   context,
                   PageTransition(
                     type: PageTransitionType.fade,
-                    child: SecondPage(),
+                    child: const SecondPage(),
                   ),
                 );
               },
             ),
             ElevatedButton(
-              child: Text('Left To Right Slide Second Page'),
+              child: const Text('Left To Right Slide Second Page'),
               onPressed: () {
                 Navigator.push(
                   context,
                   PageTransition(
                     type: PageTransitionType.leftToRight,
-                    child: SecondPage(),
+                    child: const SecondPage(),
                   ),
                 );
               },
             ),
             ElevatedButton(
-              child: Text('Right To Left Slide Second Page'),
+              child: const Text('Right To Left Slide Second Page'),
               onPressed: () {
                 Navigator.push(
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
-                    child: SecondPage(),
+                    child: const SecondPage(),
                   ),
                 );
               },
             ),
             ElevatedButton(
-              child: Text('Size Slide Second Page'),
+              child: const Text('Size Slide Second Page'),
               onPressed: () {
                 Navigator.push(
                     context,
@@ -89,11 +93,11 @@ class MyHomePage extends StatelessWidget {
                         alignment: Alignment.bottomCenter,
                         curve: Curves.bounceOut,
                         type: PageTransitionType.size,
-                        child: SecondPage()));
+                        child: const SecondPage()));
               },
             ),
             ElevatedButton(
-              child: Text('Rotate Slide Second Page'),
+              child: const Text('Rotate Slide Second Page'),
               onPressed: () {
                 Navigator.push(
                     context,
@@ -101,11 +105,11 @@ class MyHomePage extends StatelessWidget {
                         curve: Curves.bounceOut,
                         type: PageTransitionType.rotate,
                         alignment: Alignment.topCenter,
-                        child: SecondPage()));
+                        child: const SecondPage()));
               },
             ),
             ElevatedButton(
-              child: Text('Scale Slide Second Page'),
+              child: const Text('Scale Slide Second Page'),
               onPressed: () {
                 Navigator.push(
                     context,
@@ -113,29 +117,29 @@ class MyHomePage extends StatelessWidget {
                         curve: Curves.linear,
                         type: PageTransitionType.scale,
                         alignment: Alignment.topCenter,
-                        child: SecondPage()));
+                        child: const SecondPage()));
               },
             ),
             ElevatedButton(
-              child: Text('Up to Down Second Page'),
+              child: const Text('Up to Down Second Page'),
               onPressed: () {
                 Navigator.push(
                     context,
                     PageTransition(
                         curve: Curves.linear,
                         type: PageTransitionType.topToBottom,
-                        child: SecondPage()));
+                        child: const SecondPage()));
               },
             ),
             ElevatedButton(
-              child: Text('Down to Up Second Page'),
+              child: const Text('Down to Up Second Page'),
               onPressed: () {
                 Navigator.push(
                     context,
                     PageTransition(
                         curve: Curves.linear,
                         type: PageTransitionType.bottomToTop,
-                        child: SecondPage()));
+                        child: const SecondPage()));
               },
             ),
           ],
@@ -146,14 +150,16 @@ class MyHomePage extends StatelessWidget {
 }
 
 class SecondPage extends StatelessWidget {
+  const SecondPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Page Transition Plugin"),
+        title: const Text("Page Transition Plugin"),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Second Page'),
       ),
     );

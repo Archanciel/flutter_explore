@@ -25,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     viewModel = Provider.of<HomeViewModel>(context, listen: false);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       viewModel.fetchData();
     });
     super.initState();
@@ -39,14 +39,14 @@ class _HomeViewState extends State<HomeView> {
           return child ?? const SizedBox();
         }
 
-        return CustomScaffold(
+        return const CustomScaffold(
           enableGutter: false,
           child: SingleChildScrollView(
-            key: const Key('singleChildScrollView'),
-            padding: const EdgeInsets.only(top: 20),
+            key: Key('singleChildScrollView'),
+            padding: EdgeInsets.only(top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 SpacerVertical(20),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
@@ -90,7 +90,7 @@ class _Intro extends StatelessWidget {
           HomeStrings.nam,
           style: Theme.of(context)
               .textTheme
-              .caption!
+              .bodySmall!
               .copyWith(color: AppColors.textGrey),
         ),
         const SpacerVertical(8),
@@ -98,7 +98,7 @@ class _Intro extends StatelessWidget {
           children: [
             Text(
               HomeStrings.euismod,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const Spacer(),
             const Icon(
@@ -130,11 +130,11 @@ class _Bottom extends StatelessWidget {
       children: [
         Text(
           HomeStrings.bottom,
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.displaySmall,
         ),
         Text(
           HomeStrings.bottomDesc,
-          style: Theme.of(context).textTheme.caption,
+          style: Theme.of(context).textTheme.bodySmall,
         ),
         ListComponent(
           key: const Key(HomeStrings.bOp1),

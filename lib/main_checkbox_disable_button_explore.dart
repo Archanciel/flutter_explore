@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,8 +37,8 @@ class _MainAppState extends State<MainApp> {
       ),
       body: Container(
         color: Colors.blue,
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-        child: Column(
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -54,7 +54,7 @@ class _MainAppState extends State<MainApp> {
 /// can so improve performance with avoiding rebuilding it each
 /// time its including widget is rebuilt !
 class TwoButtonsWidget extends StatefulWidget {
-  TwoButtonsWidget({
+  const TwoButtonsWidget({
     Key? key,
   }) : super(key: key);
 

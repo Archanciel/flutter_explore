@@ -3,21 +3,23 @@
 import "package:flutter/material.dart";
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: MyApp(),
   ));
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
 
-  TextEditingController _textFieldOneController =
+  final TextEditingController _textFieldOneController =
       TextEditingController(text: '15-05-2022 13:25');
-  TextEditingController _textFieldTwoController =
+  final TextEditingController _textFieldTwoController =
       TextEditingController(text: '16-05-2022 23:25');
 
   @override

@@ -2,8 +2,8 @@ import 'package:get_it/get_it.dart';
 import 'package:screener/fringilla/repository/fringilla_repo.dart';
 import 'package:screener/home/repository/home_repo.dart';
 
-import 'pellen/repository/pellen_repo.dart';
-import 'shared/services/navigation.service.dart';
+import 'package:screener/pellen/repository/pellen_repo.dart';
+import 'package:screener/shared/services/navigation.service.dart';
 
 final GetIt locator = GetIt.instance;
 

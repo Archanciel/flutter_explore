@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 enum Color { red, green, blue }
 enum Size { small, medium, large }
@@ -49,12 +48,12 @@ typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
 
 class JsonDataService {
 // typedef FromJsonFunction<T> = T Function(Map<String, dynamic> jsonDataMap);
-  static Map<Type, FromJsonFunction> _fromJsonFunctionsMap = {
+  static final Map<Type, FromJsonFunction> _fromJsonFunctionsMap = {
     MyOtherClass: (jsonDataMap) => MyOtherClass.fromJson(jsonDataMap),
   };
 
 // typedef ToJsonFunction<T> = Map<String, dynamic> Function(T model);
-  static Map<Type, ToJsonFunction> _toJsonFunctionsMap = {
+  static final Map<Type, ToJsonFunction> _toJsonFunctionsMap = {
     MyOtherClass: (model) => model.toJson(),
   };
 
@@ -98,7 +97,7 @@ class JsonDataService {
     required String jsonStr,
   }) {
     String prettyJson =
-        JsonEncoder.withIndent('  ').convert(json.decode(jsonStr));
+        const JsonEncoder.withIndent('  ').convert(json.decode(jsonStr));
     print('$methodName:\n$prettyJson');
   }
 }

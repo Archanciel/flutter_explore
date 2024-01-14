@@ -44,9 +44,9 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
               },
               child: Container(
                 padding: const EdgeInsets.all(15.0),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text('One'),
                     TextField(
                       keyboardType: TextInputType.multiline,

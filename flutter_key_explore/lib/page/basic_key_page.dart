@@ -3,6 +3,8 @@ import 'package:flutter_key_explore/main.dart';
 import 'package:flutter_key_explore/utils.dart';
 
 class BasicKeyPage extends StatefulWidget {
+  const BasicKeyPage({super.key});
+
   @override
   _BasicKeyPageState createState() => _BasicKeyPageState();
 }
@@ -10,16 +12,16 @@ class BasicKeyPage extends StatefulWidget {
 class _BasicKeyPageState extends State<BasicKeyPage> {
   bool showEmail = true;
   Icon? icon;
-  Text? label = Text('hello');
+  Text? label = const Text('hello');
 
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(MyApp.title),
+          title: const Text(MyApp.title),
           centerTitle: true,
         ),
         body: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           alignment: Alignment.center,
           child: SingleChildScrollView(
             child: Column(
@@ -28,8 +30,8 @@ class _BasicKeyPageState extends State<BasicKeyPage> {
                 [
                   Row(
                     children: [
-                      Text("always included"),
-                      SizedBox(width: 6),
+                      const Text("always included"),
+                      const SizedBox(width: 6),
                       ...skipNulls([
                         icon,
                         label,
@@ -60,10 +62,10 @@ class _BasicKeyPageState extends State<BasicKeyPage> {
         ),
         floatingActionButton: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
-            shape: StadiumBorder(),
+            shape: const StadiumBorder(),
           ),
-          icon: Icon(Icons.visibility_off),
-          label: Text('Remove Email'),
+          icon: const Icon(Icons.visibility_off),
+          label: const Text('Remove Email'),
           onPressed: () => setState(() => showEmail = false),
         ),
       );

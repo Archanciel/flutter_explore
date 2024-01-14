@@ -215,7 +215,7 @@ void main() {
 
       // Load the list from the file
       List<MyClass> loadedList =
-          await JsonDataService.loadListFromFile(path: jsonPath, type: MyClass);
+          JsonDataService.loadListFromFile(path: jsonPath, type: MyClass);
 
       // Check if the loaded list matches the original list
       expect(loadedList.length, testList.length);

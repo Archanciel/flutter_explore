@@ -8,8 +8,7 @@ import 'robots/secondscreen_robot.dart';
 import 'robots/thirdscreen_robot.dart';
 
 void main() {
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
-      as IntegrationTestWidgetsFlutterBinding;
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   HomeRobot homeRobot;
   SecondScreenRobot secondScreenRobot;

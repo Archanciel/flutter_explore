@@ -20,19 +20,19 @@ void main() {
   File('data.json').writeAsStringSync(jsonData);
 
   // Read the JSON data from the file
-  String new_jsonData = File('data.json').readAsStringSync();
+  String newJsondata = File('data.json').readAsStringSync();
 
   // Parse the JSON string to a map
-  Map<String, dynamic> new_data = json.decode(new_jsonData);
+  Map<String, dynamic> newData = json.decode(newJsondata);
 
   // Retrieve the string representation of the enum instance from the map
-  String new_colorString = data['color'];
+  String newColorstring = data['color'];
 
   // Convert the string representation back to an enum instance
-  Color new_myColor = Color.values.firstWhere((color) => color.toString() == '$new_colorString');
+  Color newMycolor = Color.values.firstWhere((color) => color.toString() == newColorstring);
 
   // Print the resulting enum instance
-  print(new_myColor); // Output: Color.red
+  print(newMycolor); // Output: Color.red
 
 }
 

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget with ScreenMixin {
           cursorColor: appTextAndIconColor, // requires with ScreenMixin !
         ),
       ),
-      home: FirstScreen(),
+      home: const FirstScreen(),
     );
   }
 }
@@ -62,7 +62,7 @@ class _FirstScreenState extends State<FirstScreen> with ScreenMixin {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       backgroundColor: Colors.blue,
-      drawer: Container(
+      drawer: SizedBox(
         width: MediaQuery.of(context).size.width *
             ScreenMixin.appDrawerWidthProportion,
         child: Drawer(
@@ -100,7 +100,7 @@ class _FirstScreenState extends State<FirstScreen> with ScreenMixin {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (BuildContext context) => SecondScreen(),
+                      builder: (BuildContext context) => const SecondScreen(),
                     ),
                   );
                 },
@@ -122,12 +122,14 @@ class _FirstScreenState extends State<FirstScreen> with ScreenMixin {
 }
 
 class SecondScreen extends StatelessWidget with ScreenMixin {
+  const SecondScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments;
     return Scaffold(
       backgroundColor: Colors.blue,
-      drawer: Container(
+      drawer: SizedBox(
         width: MediaQuery.of(context).size.width *
             ScreenMixin.appDrawerWidthProportion,
         child: Drawer(
@@ -165,7 +167,7 @@ class SecondScreen extends StatelessWidget with ScreenMixin {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (BuildContext context) => FirstScreen(),
+                      builder: (BuildContext context) => const FirstScreen(),
                     ),
                   );
                 },

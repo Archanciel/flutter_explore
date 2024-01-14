@@ -7,6 +7,8 @@ import '../widget/cheetah_button.dart';
 import 'languages.dart';
 
 class Home extends StatelessWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     context.watch<LanguageController>();
@@ -41,7 +43,7 @@ class Home extends StatelessWidget {
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Languages(),
+                    builder: (context) => const Languages(),
                   ),
                 ),
               ),

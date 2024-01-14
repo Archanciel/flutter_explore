@@ -27,7 +27,7 @@ class CardComponent extends StatelessWidget {
               Expanded(
                 child: Text(
                   text,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
               const Icon(

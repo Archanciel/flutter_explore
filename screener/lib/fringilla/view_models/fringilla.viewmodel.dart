@@ -20,7 +20,7 @@ class FringillaViewModel extends LoadingViewModel {
 
       model = await repo.fetchData();
     } catch (exc) {
-      debugPrint('Error in _fetchData : ${exc.toString()}');
+      debugPrint('Error in _fetchData : $exc');
     }
 
     isLoading = false;

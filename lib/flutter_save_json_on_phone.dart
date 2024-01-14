@@ -20,10 +20,12 @@ const TextStyle kTextStyle = TextStyle(
 );
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -140,7 +142,7 @@ class _MyAppState extends State<MyApp> {
                 'Add to JSON file',
                 style: Theme.of(context)
                     .textTheme
-                    .headline4
+                    .headlineMedium
                     ?.copyWith(fontWeight: FontWeight.w700, color: Colors.blue),
               ),
               MyInputWidget(
@@ -169,7 +171,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 style: ElevatedButton.styleFrom(
                     minimumSize:
-                        Size(100, 50) // put the width and height you want
+                        const Size(100, 50) // put the width and height you want
                     ),
                 child: const Text(
                   'Add {Key, Value} pair',
@@ -209,7 +211,7 @@ class MyInputWidget extends StatelessWidget {
   final TextEditingController controller;
   final String label;
 
-  MyInputWidget({required this.controller, required this.label});
+  const MyInputWidget({super.key, required this.controller, required this.label});
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ class Task {
 }
 
 class TaskController {
-  List<Task> _tasks = [];
+  final List<Task> _tasks = [];
 
   List<Task> get tasks => _tasks;
 
@@ -34,19 +34,23 @@ class TaskController {
 
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: TaskListView(),
     );
   }
 }
 
 class TaskListView extends StatefulWidget {
+  const TaskListView({super.key});
+
   @override
   _TaskListViewState createState() => _TaskListViewState();
 }

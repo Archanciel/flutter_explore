@@ -23,7 +23,7 @@ class ButtonComponent extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           side: BorderSide(color: AppColors.buttonOutline),
         ),
-        child: Text(text, style: Theme.of(context).textTheme.button),
+        child: Text(text, style: Theme.of(context).textTheme.labelLarge),
       ),
     );
   }

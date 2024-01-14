@@ -61,18 +61,18 @@ class MyApp extends StatelessWidget {
         // Define the default `TextTheme`. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
         textTheme: const TextTheme(
-          headline1: TextStyle(
+          displayLarge: TextStyle(
             fontSize: 72.0,
             fontWeight: FontWeight.bold,
           ),
-          headline6: TextStyle(
+          titleLarge: TextStyle(
             fontFamily: 'Georgia',
             fontSize: 36.0,
             fontStyle: FontStyle.italic,
             fontWeight: FontWeight.bold,
             color: Colors.red,
           ),
-          bodyText2: TextStyle(
+          bodyMedium: TextStyle(
             fontSize: 22.0,
             fontFamily: 'Lato',
             color: Colors.yellow,
@@ -107,13 +107,13 @@ class MyHomePage extends StatelessWidget {
             children: [
               Text(
                 'Text with a background and foreground color headline6',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               Text(
                 'Text bodyText2',
-                style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
-              Text(
+              const Text(
                 'Text default',
               ),
             ],

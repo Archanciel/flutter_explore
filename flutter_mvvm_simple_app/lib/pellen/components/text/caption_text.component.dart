@@ -8,6 +8,6 @@ class CaptionTextComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: Theme.of(context).textTheme.caption);
+    return Text(text, style: Theme.of(context).textTheme.bodySmall);
   }
 }

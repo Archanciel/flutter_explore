@@ -8,11 +8,13 @@ Future main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static final String title = 'Dialog With TextField';
+  static const String title = 'Dialog With TextField';
+
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -20,25 +22,27 @@ class MyApp extends StatelessWidget {
         title: title,
         theme: ThemeData(
           primarySwatch: Colors.blue,
-          textTheme: TextTheme(
-            bodyText2: TextStyle(fontSize: 32),
+          textTheme: const TextTheme(
+            bodyMedium: TextStyle(fontSize: 32),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-              minimumSize: Size.fromHeight(52),
-              textStyle: TextStyle(fontSize: 24),
+              minimumSize: const Size.fromHeight(52),
+              textStyle: const TextStyle(fontSize: 24),
             ),
           ),
-          snackBarTheme: SnackBarThemeData(
+          snackBarTheme: const SnackBarThemeData(
             backgroundColor: Colors.green,
             contentTextStyle: TextStyle(fontSize: 24),
           ),
         ),
-        home: MainPage(),
+        home: const MainPage(),
       );
 }
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -64,16 +68,16 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(MyApp.title),
+          title: const Text(MyApp.title),
           centerTitle: true,
         ),
         body: Container(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Column(
             children: [
               Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Text(
                       'Name: ',
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -85,12 +89,12 @@ class _MainPageState extends State<MainPage> {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                child: Text('Open Dialog'),
+                child: const Text('Open Dialog'),
                 onPressed: () async {
                   final name = await openDialog();
                   if (name == null || name.isEmpty) return;
 
-                  setState(() => this._name = name);
+                  setState(() => _name = name);
 
                   final snackBar = SnackBar(content: Text('Your name: $name'));
                   ScaffoldMessenger.of(context)
@@ -106,16 +110,16 @@ class _MainPageState extends State<MainPage> {
   Future<String?> openDialog() => showDialog<String>(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Your Name'),
+          title: const Text('Your Name'),
           content: TextField(
             autofocus: true,
-            decoration: InputDecoration(hintText: 'Enter your name'),
+            decoration: const InputDecoration(hintText: 'Enter your name'),
             controller: controller,
             onSubmitted: (_) => submit(),
           ),
           actions: [
             TextButton(
-              child: Text('SUBMIT'),
+              child: const Text('SUBMIT'),
               onPressed: submit,
             ),
           ],

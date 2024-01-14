@@ -8,6 +8,8 @@ import '../widget/cheetah_button.dart';
 class Languages extends StatelessWidget {
   static const double kBtnHeight = 22;
 
+  const Languages({super.key});
+
   @override
   Widget build(BuildContext context) {
     LanguageController controller = context.read<LanguageController>();

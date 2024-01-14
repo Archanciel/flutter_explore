@@ -4,7 +4,7 @@ import 'package:flutter_explore/new_main.dart';
 
 void main() {
   testWidgets('Compound Interest Calculator test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: CompoundInterestCalculator(),
     ));
 

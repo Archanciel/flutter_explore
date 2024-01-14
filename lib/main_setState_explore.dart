@@ -109,11 +109,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_posCounter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
               '$_negCounter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),

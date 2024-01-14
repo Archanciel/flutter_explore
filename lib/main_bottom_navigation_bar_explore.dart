@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,13 +15,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,15 +31,15 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  Widget _myContacts = MyContacts();
-  Widget _myEmails = MyEmails();
-  Widget _myProfile = MyProfile();
+  final Widget _myContacts = const MyContacts();
+  final Widget _myEmails = const MyEmails();
+  final Widget _myProfile = const MyProfile();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("BottomNavigationBar Example"),
+        title: const Text("BottomNavigationBar Example"),
       ),
       body: getBody(),
       bottomNavigationBar: BottomNavigationBar(
@@ -96,7 +98,7 @@ class MyContacts extends StatelessWidget {
         bottom: 10,
         child: ElevatedButton(
           onPressed: () {},
-          child: Text('Reset')
+          child: const Text('Reset')
         ),
       ),
     ]);

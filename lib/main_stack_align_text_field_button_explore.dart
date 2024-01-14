@@ -1,7 +1,7 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,13 +11,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter stack align explore',
       theme: ThemeData.dark(),
-      home: MyStatefulApp(),
+      home: const MyStatefulApp(),
     );
   }
 }
 
 class MyStatefulApp extends StatefulWidget {
-  MyStatefulApp({Key? key}) : super(key: key);
+  const MyStatefulApp({Key? key}) : super(key: key);
 
   @override
   State<MyStatefulApp> createState() => _MyStatefulAppState();
@@ -32,7 +32,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
       backgroundColor: Colors.blue.shade900,
       appBar: AppBar(
         backgroundColor: Colors.blue.shade900,
-        title: Text(
+        title: const Text(
           'Flutter stack align TextFields Buttons explore',
         ),
       ),
@@ -46,7 +46,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
@@ -70,13 +70,13 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                     use24HourFormat: true,
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2100),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.event,
                       color: Colors.white,
                       size: 30,
                     ),
                     decoration: const InputDecoration.collapsed(hintText: ''),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.normal,
@@ -109,14 +109,14 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                         use24HourFormat: true,
                         firstDate: DateTime(2000),
                         lastDate: DateTime(2100),
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.event,
                           color: Colors.white,
                           size: 30,
                         ),
                         decoration:
                             const InputDecoration.collapsed(hintText: ''),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.normal,
@@ -130,26 +130,26 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                   ),
                   Theme(
                     data: Theme.of(context).copyWith(
-                      textSelectionTheme: TextSelectionThemeData(
+                      textSelectionTheme: const TextSelectionThemeData(
                         selectionColor: Colors.green,
                         // commenting cursorColor discourage manually
                         // editing the TextField !
                         // cursorColor: appTextAndIconColor,
                       ),
                     ),
-                    child: TextField(
+                    child: const TextField(
                       maxLines: null,
                       minLines: 6,
                       style: TextStyle(
                           color: Colors.green,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
-                      decoration: const InputDecoration.collapsed(hintText: ''),
+                      decoration: InputDecoration.collapsed(hintText: ''),
                       keyboardType: TextInputType.datetime,
                     ),
                   ),
                   Container(
-                    child: TextField(
+                    child: const TextField(
                       enabled: false,
                       decoration: InputDecoration(
                         isCollapsed: true,
@@ -208,7 +208,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   ElevatedButton(
@@ -236,7 +236,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                   const Text(''),
                   Container(
                     child: Text(_status),
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 9),
+                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 9),
                   ),
                 ],
               ),
@@ -259,7 +259,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                       }
                     });
                   },
-                  child: Text('Reset')),
+                  child: const Text('Reset')),
             ),
           ],
         ),

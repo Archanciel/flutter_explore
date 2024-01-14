@@ -71,9 +71,9 @@ class _Internal extends StatelessWidget {
       children: [
         H3TextComponent(text: optionTitle),
         const SpacerVertical(12),
-        Text(optionSubtitle, style: Theme.of(context).textTheme.bodyText1),
+        Text(optionSubtitle, style: Theme.of(context).textTheme.bodyLarge),
         const SpacerVertical(18),
-        Text(optionDesc, style: Theme.of(context).textTheme.caption),
+        Text(optionDesc, style: Theme.of(context).textTheme.bodySmall),
       ],
     );
   }

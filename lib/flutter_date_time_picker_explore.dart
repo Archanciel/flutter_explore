@@ -174,7 +174,7 @@ class _TextScreenState extends State<TextScreen> {
               child: GestureDetector(
                 child: Text(
                   getDateTime(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),

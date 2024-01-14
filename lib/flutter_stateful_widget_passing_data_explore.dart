@@ -1,11 +1,8 @@
-import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(MainApp());
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -13,7 +10,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'MainApp',
       home: MyStatefullApp(),
     );
@@ -21,7 +18,7 @@ class MainApp extends StatelessWidget {
 }
 
 class MyStatefullApp extends StatefulWidget {
-  MyStatefullApp({Key? key}) : super(key: key);
+  const MyStatefullApp({Key? key}) : super(key: key);
 
   @override
   State<MyStatefullApp> createState() => _MyStatefullAppState();
@@ -112,7 +109,7 @@ class _MyStatefullAppState extends State<MyStatefullApp> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             _statefullWidgetOne,
@@ -143,9 +140,8 @@ class CustomStatefullWidget extends StatefulWidget {
   ///                   user modified a widget editable field.
   CustomStatefullWidget({
     Key? key,
-    required Map<String, dynamic> this.widgetValueMap,
-    required void Function(Map<String, dynamic> widgetReturnedValueMap)
-        this.onSubmitFunction,
+    required this.widgetValueMap,
+    required this.onSubmitFunction,
   }) : super(key: key);
 
   /// this variable enables the CustomStatefullWidget instance to
@@ -263,7 +259,7 @@ class _CustomStatefullWidgetState extends State<CustomStatefullWidget> {
         Center(
           child: Text(
             '${_controllerText.text} ${_controllerValue.text}',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
       ],

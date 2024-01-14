@@ -6,7 +6,7 @@ class CheetahButton extends StatelessWidget {
   final Color color;
   final Color textColor;
 
-  const CheetahButton({
+  const CheetahButton({super.key, 
     required this.text,
     required this.onPressed,
     required this.color,

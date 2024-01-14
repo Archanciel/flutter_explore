@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -10,13 +10,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter spacer explore',
       theme: ThemeData.dark(),
-      home: MyStatefulApp(),
+      home: const MyStatefulApp(),
     );
   }
 }
 
 class MyStatefulApp extends StatefulWidget {
-  MyStatefulApp({Key? key}) : super(key: key);
+  const MyStatefulApp({Key? key}) : super(key: key);
 
   @override
   State<MyStatefulApp> createState() => _MyStatefulAppState();
@@ -29,21 +29,21 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
+          title: const Text(
         'Flutter spacer explore',
       )),
       body: Stack(
         children: [
-          Align(
+          const Align(
             alignment: Alignment.topCenter,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-              const Text('One'),
-              const Text('Two'),
-              const Text('Three'),
-              const Text('Four'),
+              Text('One'),
+              Text('Two'),
+              Text('Three'),
+              Text('Four'),
             ],),
           ),
           Align(
@@ -52,11 +52,11 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Spacer(
+                const Spacer(
                   flex: 2,
                 ),
                 Text(_status),
-                Spacer(),
+                const Spacer(),
                 TextButton(
                     style: const ButtonStyle(
                         visualDensity: VisualDensity(
@@ -71,7 +71,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
                         }
                       });
                     },
-                    child: Text('Reset')),
+                    child: const Text('Reset')),
               ],
             ),
           ),

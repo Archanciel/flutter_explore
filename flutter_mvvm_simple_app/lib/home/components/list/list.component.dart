@@ -27,7 +27,7 @@ class ListComponent extends StatelessWidget {
           children: [
             Text(
               text,
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             const Spacer(),
             const Icon(

@@ -4,7 +4,7 @@ class CheetahInput extends StatelessWidget {
   final String labelText;
   final Function(String?) onSaved;
 
-  const CheetahInput({
+  const CheetahInput({super.key, 
     required this.labelText,
     required this.onSaved,
   });

@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-
-import 'package:shared_components/shared_components.dart';
-
 import 'package:app_theme/app_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_components/shared_components.dart';
 
 class CarouselCardComponent extends ImageCacherComponent {
   const CarouselCardComponent({
@@ -71,9 +69,9 @@ class _Internal extends StatelessWidget {
       children: [
         H3TextComponent(text: optionTitle),
         const SpacerVertical(12),
-        Text(optionSubtitle, style: Theme.of(context).textTheme.bodyText1),
+        Text(optionSubtitle, style: Theme.of(context).textTheme.bodyLarge),
         const SpacerVertical(18),
-        Text(optionDesc, style: Theme.of(context).textTheme.caption),
+        Text(optionDesc, style: Theme.of(context).textTheme.bodySmall),
       ],
     );
   }

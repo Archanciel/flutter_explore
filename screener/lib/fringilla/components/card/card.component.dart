@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:app_theme/app_theme.dart' show AppColors;
+import 'package:flutter/material.dart';
 
 typedef CardPressed = void Function();
 
@@ -27,7 +26,7 @@ class CardComponent extends StatelessWidget {
               Expanded(
                 child: Text(
                   text,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
               const Icon(
